@@ -33,7 +33,7 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
     html_text=f'''<!doctype html><html lang="es-VE"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090a0b">
 <title>{E(title)}</title><meta name="description" content="{E(description)}"><meta name="author" content="Euro Factory">
-<link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/webp" href="/assets/eurofactory-icon.webp">
 <meta property="og:type" content="{ogtype}"><meta property="og:locale" content="es_VE"><meta property="og:site_name" content="Euro Factory"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(URL)}/assets/bmw-detalle.webp">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(description)}">
 <link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=5"><link rel="stylesheet" href="/assets/refinement.css?v=5">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
