@@ -40,3 +40,6 @@ Confirmar con el taller teléfonos, horarios y direcciones antes de la publicaci
 
 ## Logo oficial
 `public/assets/eurofactory-logo.webp` reproduce el logotipo original plateado facilitado por el cliente, optimizado a WebP y aplicado en navbar y footer, también en `dist/assets/`. Evitar reemplazarlo por el marcador `EF`. La estética general mantiene el ámbar del cartel ECUS Motors y el grafito.
+
+## Iconografia SVG
+Toda la iconografia de accion (flechas, botones, navegacion, controles de galeria/carrusel) usa SVG desde `/assets/icons.svg` en lugar de caracteres Unicode o emojis. El generador `scripts/build.py` aplica estos iconos a las 21 paginas estaticas. El menu movil alterna iconos SVG desde `site.js`. Los mensajes preparados para WhatsApp usan etiquetas de texto sin emojis, porque un mensaje no admite SVG.
