@@ -1,9 +1,10 @@
-# Euro Factory · Dirección de lujo
+# Euro Factory · Motorsport
 
-Negro obsidiana #0c0c0b, marfil cálido #eeeae0 y champán #d0b98a. Titulares editoriales en Georgia y texto funcional sans serif. Espacio generoso, líneas finas, geometría recta, fotografías del taller existentes y saturación contenida.
+Referencia visual aportada por el usuario: composición de Kenner Motorsport. Dirección original para Euro Factory: fotografía inmersiva, negro carbón, rojo racing, blanco, titulares condensados en mayúsculas y servicios con imagen.
 
-Portada con composición asimétrica y fotografía enmarcada. Servicios en dos columnas, fichas de sedes editoriales y formulario oscuro con controles de 16 px. Mantener enfoque visible, menú con teclado y preferencias de movimiento reducido.
+Fuente de titulares: Barlow Condensed Bold alojada localmente (licencia OFL); alternativas Bahnschrift / Arial Narrow / Impact / sans-serif; interfaz y cuerpo Arial. Negro #090a0b, rojo #ed1239, texto destacado #ff3156, papel #f4f4f4.
 
-Tono claro, español neutro y orientación técnica. No inventar acreditaciones, testimonios ni garantías. Logo EF provisional conservado. El mensaje de WhatsApp se revisa antes de enviarse.
+Conservar datos reales, rutas SEO y perfiles de sedes. El selector prepara la visita y no simula potencia. Los bloques de confianza explican el proceso; no usan testimonios ficticios. Carrusel manual y galería ampliable por teclado. El formulario solo prepara WhatsApp.
 
-Tokens primitivos → semánticos → componentes en public/assets/refinement.css. Mantener rutas, metadatos y datos estructurados por sede.
+El archivo performance-hero.webp es una imagen de ambientación generada; las fotos de galería proceden del material original del taller.
+

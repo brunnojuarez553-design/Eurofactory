@@ -2,7 +2,7 @@
   const toggle = document.querySelector('[data-menu-toggle]');
   const mobile = document.querySelector('[data-mobile-nav]');
   if (toggle && mobile) {
-    const narrow = window.matchMedia("(max-width: 850px)");
+    const narrow = window.matchMedia("(max-width: 1100px)");
     function closeMenu(restoreFocus = false) {
       mobile.classList.remove("open"); document.body.classList.remove("menu-open");
       toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Abrir menú"); toggle.textContent = "☰";
@@ -37,11 +37,69 @@
     });
     document.querySelectorAll('.hero, .tool-card, .cta-footer').forEach(el => observer.observe(el));
   }
+
+  const header = document.querySelector('.header');
+  const progressBar = document.querySelector('[data-reading-progress]');
+  let scrollQueued = false;
+  function updateScroll() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (progressBar) progressBar.style.width = (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%';
+    header?.classList.toggle('is-scrolled', window.scrollY > 60);
+    scrollQueued = false;
+  }
+  window.addEventListener('scroll', () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(updateScroll); } }, {passive:true});
+  window.addEventListener('resize', updateScroll); updateScroll();
+
+  const hero = document.querySelector('[data-hero-carousel]');
+  if (hero) {
+    const slides = [
+      {image:'performance-hero.webp', alt:'Imagen de ambientación: deportivo europeo en un entorno de taller', kicker:'ESPECIALISTAS EN VEHÍCULOS EUROPEOS', line:'Tu auto merece', accent:'EURO FACTORY.', copy:'Diagnóstico, mantenimiento y mecánica especializada. Precisión técnica y atención personalizada en Maracay y Valencia.', note:'Imagen de ambientación'},
+      {image:'bmw-detalle.webp', alt:'Detalle de un BMW compartido por Euro Factory', kicker:'DIAGNÓSTICO / MANTENIMIENTO / MECÁNICA', line:'Precisión técnica.', accent:'CUIDADO REAL.', copy:'Tu vehículo necesita criterio, atención y un proceso claro. Cuéntanos qué sucede y recibe orientación del equipo.', note:'Material de Euro Factory'},
+      {image:'auto-audi.webp', alt:'Vehículo Audi del material compartido por Euro Factory', kicker:'MARACAY + VALENCIA', line:'Dos sedes.', accent:'UN MISMO ESTÁNDAR.', copy:'Elige la ubicación que te quede mejor. Prepara tu consulta y contacta directamente al equipo de tu sede.', note:'Material de Euro Factory'}
+    ];
+    let active = 0;
+    function showSlide(index) {
+      active = (index + slides.length) % slides.length;
+      const slide = slides[active];
+      const image = hero.querySelector('[data-hero-image]');
+      image.src = '/assets/' + slide.image; image.alt = slide.alt;
+      hero.querySelector('[data-hero-kicker]').textContent = slide.kicker;
+      const title = hero.querySelector('[data-hero-title]');
+      title.replaceChildren(document.createTextNode(slide.line), document.createElement('br'));
+      const accent = document.createElement('em'); accent.textContent = slide.accent; title.append(accent);
+      hero.querySelector('[data-hero-copy]').textContent = slide.copy;
+      hero.querySelector('[data-hero-note]').textContent = slide.note;
+      hero.querySelector('[data-hero-count]').textContent = String(active+1).padStart(2,'0') + ' / 03';
+      hero.querySelectorAll('[data-hero-slide]').forEach((button, index) => button.setAttribute('aria-pressed', String(index === active)));
+    }
+    hero.querySelector('[data-hero-prev]').addEventListener('click', () => showSlide(active-1));
+    hero.querySelector('[data-hero-next]').addEventListener('click', () => showSlide(active+1));
+    hero.querySelectorAll('[data-hero-slide]').forEach(button => button.addEventListener('click', () => showSlide(Number(button.dataset.heroSlide))));
+  }
+
+  const dialog = document.querySelector('[data-gallery-dialog]');
+  if (dialog && typeof dialog.showModal === 'function') {
+    document.querySelectorAll('[data-gallery-image]').forEach(link => link.addEventListener('click', event => {
+      event.preventDefault();
+      const image = dialog.querySelector('[data-gallery-full]');
+      image.src = link.href; image.alt = link.dataset.caption;
+      dialog.querySelector('[data-gallery-caption]').textContent = link.dataset.caption;
+      dialog.showModal();
+    }));
+    dialog.querySelector('[data-gallery-close]').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => {
+      const box = dialog.getBoundingClientRect();
+      if (event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) dialog.close();
+    });
+  }
+
   // Datos enviados solo al WhatsApp elegido tras pulsar el enlace: no existe reserva ni almacenamiento local.
   document.querySelectorAll('[data-intake]').forEach(form => {
     const params = new URLSearchParams(location.search);
     const initialSede = params.get('sede');
     if (initialSede === 'maracay' || initialSede === 'valencia') form.elements.sede.value = initialSede;
+    const initialBrand = params.get('marca');
+    if (initialBrand && initialBrand.length <= 60) form.elements.marca.value = initialBrand;
     const progress = form.querySelector('[data-form-progress]');
     const required = [...form.querySelectorAll('[required]')];
     function updateProgress() {
