@@ -43,7 +43,7 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
 <link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/webp" href="/assets/eurofactory-icon.webp">
 <meta property="og:type" content="{ogtype}"><meta property="og:locale" content="es_VE"><meta property="og:site_name" content="Euro Factory"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(URL)}/assets/bmw-detalle.webp">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(description)}">
-<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
+<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
 <div class="reading-progress" aria-hidden="true" data-reading-progress></div>
 <header class="header"><div class="wrap header-in">{brand()}<nav class="nav" aria-label="Navegación principal">{navhtml}</nav><div class="nav-cta">{btn('Agenda tu evaluación','/evaluacion/','btn-accent')}<button type="button" class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>☰</button></div></div>
 <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" data-mobile-nav>{navhtml}<a href="/evaluacion/">Solicitar evaluación ↗</a></nav></header>
@@ -95,9 +95,64 @@ def tool_form():
 def tool_section():
     return f'''<section class="section tool-section" id="evaluacion"><div class="wrap"><div class="section-head"><div><div class="eyebrow">04 / HERRAMIENTA DIGITAL</div><h2 class="title">Tu próxima<br><span class="serif">evaluación.</span></h2></div><p class="lead">Una solicitud ordenada ayuda al taller a entender tu caso desde el primer contacto.</p></div><div class="tool-card"><div class="tool-intro"><div class="eyebrow">EURO FACTORY / SERVICE INTAKE</div><h3 class="title">Cuéntanos qué <span class="serif">necesitas.</span></h3><p>Elige una sede, cuéntanos qué vehículo tienes y qué está pasando. Preparamos tu mensaje para el equipo adecuado.</p><div class="step-list"><div><span>01 / IDENTIFICACIÓN</span><b>Vehículo y servicio</b></div><div><span>02 / CONTEXTO</span><b>Descripción de la consulta</b></div><div><span>03 / CONTACTO</span><b>WhatsApp de la sede elegida</b></div></div></div>{tool_form()}</div></div></section>'''
 
+def branch_icon(name):
+    """Íconos SVG inline para que el contacto funcione sin librerías externas."""
+    paths = {
+        'pin': '<path d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/>',
+        'phone': '<path d="M22 16.5v3a2.5 2.5 0 0 1-2.7 2.5A18.4 18.4 0 0 1 3 5.7 2.5 2.5 0 0 1 5.5 3h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.8L8.6 11a14 14 0 0 0 4.4 4.4l1.5-1.8a2 2 0 0 1 1.8-.6l3 .5a2 2 0 0 1 1.7 2Z"/>',
+        'message': '<path d="M20 11.5a8 8 0 0 1-8 8 9 9 0 0 1-4-.9L3 20l1.4-4.6A8 8 0 1 1 20 11.5Z"/><path d="M8.5 11.5h7"/>',
+        'calendar': '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18"/>',
+        'navigation': '<path d="m3 11 18-8-8 18-2.5-7.5L3 11Z"/>',
+        'arrow': '<path d="M7 17 17 7M7 7h10v10"/>',
+    }
+    return '<svg class="branch-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + paths[name] + '</svg>'
+
 def locations_section():
-    cards=''.join(f'''<article class="location-card"><div class="eyebrow">{('05' if key=='maracay' else '06')} / SEDE {E(L['region']).upper()}</div><h3>{E(L['city'])}<span style="color:var(--accent)">.</span></h3><p>{E(L['shortAddress'])}<br>Atención y evaluaciones por consulta.</p><div class="links"><a class="line-link" href="/sedes/{key}/">Ver sede ↗</a><a class="line-link" href="/evaluacion/?sede={key}">Solicitar cita ↗</a></div></article>''' for key,L in LOCATIONS.items())
-    return f'''<section class="section"><div class="wrap"><div class="section-head"><div><div class="eyebrow">05 / DÓNDE ESTAMOS</div><h2 class="title">Dos sedes.<br><span class="serif">Un estándar.</span></h2></div><p class="lead">Elige la ubicación que te quede mejor. Tu solicitud se dirigirá al equipo correspondiente.</p></div><div class="locations-grid">{cards}</div></div></section>'''
+    cards = []
+    for index, (key, L) in enumerate(LOCATIONS.items(), start=1):
+        exact_address = key == 'maracay'
+        address = L['address'] if exact_address else L['shortAddress']
+        query = (L['address'] + ', ' + L['city'] + ', Venezuela') if exact_address else 'El Viñedo, Valencia, Carabobo, Venezuela'
+        embed_url = 'https://maps.google.com/maps?q=' + quote(query, safe='') + '&z=15&output=embed'
+        wa_message = 'Hola, Euro Factory ' + L['city'] + '. Me gustaría solicitar información para mi vehículo.'
+        wa_url = 'https://wa.me/' + L['wa'] + '?text=' + quote(wa_message, safe='')
+        map_notice = ('Mapa de la zona de Los Olivos Viejos. Confirma el acceso al galpón con el taller.' if exact_address else
+                      'Mapa referencial de El Viñedo. Confirma la dirección exacta con la sede antes de ir.')
+        map_label = 'Ver ubicación en Google Maps' if exact_address else 'Explorar zona en Google Maps'
+        location_status = 'Dirección publicada' if exact_address else 'Ubicación exacta por confirmar'
+        cards.append(f'''<article class="branch-card" aria-labelledby="branch-{key}-title">
+<div class="branch-card__top">
+  <div class="branch-card__eyebrow"><span class="branch-card__index">SEDE {index:02d}</span><span class="branch-card__region">{E(L['region']).upper()} / VENEZUELA</span></div>
+  <h3 id="branch-{key}-title">{E(L['city'])}<span>.</span></h3>
+  <p class="branch-card__intro">Contacto directo con el equipo de Euro Factory {E(L['city'])}.</p>
+  <div class="branch-contact-detail">
+    <div class="branch-contact-detail__icon">{branch_icon('pin')}</div>
+    <div class="branch-contact-detail__body"><span class="branch-contact-detail__label">DIRECCIÓN</span><address>{E(address)}</address><small class="branch-location-status">{E(location_status)}</small></div>
+  </div>
+  <a class="branch-contact-detail branch-contact-detail--link" href="tel:+{E(L['wa'])}" aria-label="Llamar a Euro Factory {E(L['city'])} al {E(L['phone'])}">
+    <span class="branch-contact-detail__icon">{branch_icon('phone')}</span>
+    <span class="branch-contact-detail__body"><span class="branch-contact-detail__label">TELÉFONO / CONTACTO</span><strong>{E(L['phone'])}</strong></span>
+    <span class="branch-contact-detail__trail">{branch_icon('arrow')}</span>
+  </a>
+</div>
+<div class="branch-map" aria-label="Mapa de referencia de Euro Factory {E(L['city'])}">
+  <iframe title="Mapa de referencia: Euro Factory {E(L['city'])}" src="{E(embed_url)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+</div>
+<div class="branch-card__bottom">
+  <p class="branch-map-note">{branch_icon('pin')}<span>{E(map_notice)}</span></p>
+  <a class="branch-map-link" href="{E(L['map'])}" target="_blank" rel="noopener noreferrer">{E(map_label)} {branch_icon('arrow')}</a>
+  <div class="branch-actions">
+    <a class="branch-action branch-action--primary" href="{E(wa_url)}" target="_blank" rel="noopener noreferrer" aria-label="Escribir por WhatsApp a la sede Euro Factory {E(L['city'])}">{branch_icon('message')}<span>WhatsApp de la sede</span>{branch_icon('arrow')}</a>
+    <a class="branch-action branch-action--secondary" href="/evaluacion/?sede={E(key)}">{branch_icon('calendar')}<span>Solicitar evaluación</span>{branch_icon('arrow')}</a>
+  </div>
+  <a class="branch-detail-link" href="/sedes/{E(key)}/">Conocer más sobre esta sede {branch_icon('arrow')}</a>
+</div>
+</article>''')
+    return f'''<section class="section branches-section" id="sedes" aria-labelledby="branches-title"><div class="wrap">
+<div class="section-head branches-head"><div><div class="eyebrow">05 / DÓNDE ESTAMOS</div><h2 class="title" id="branches-title">Dos sedes.<br><span class="serif">Un estándar.</span></h2></div>
+<p class="lead">Elegí tu sede. Encontrá su dirección, contacto directo y mapa, y prepará tu evaluación en pocos pasos.</p></div>
+<div class="branch-grid">{''.join(cards)}</div>
+</div></section>'''
 
 def faq_section():
     return '<section class="section dark-panel"><div class="wrap"><div class="section-head"><div><div class="eyebrow">06 / PREGUNTAS FRECUENTES</div><h2 class="title">Resolvemos <span class="serif">tus dudas.</span></h2></div><a class="line-link" href="/preguntas-frecuentes/">Ver todas las respuestas ↗</a></div><div class="faq">'+''.join(f'<details><summary>{E(q)}</summary><p>{E(a)}</p></details>' for q,a in FAQS)+'</div></div></section>'

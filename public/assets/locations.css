@@ -1,0 +1,50 @@
+/* Euro Factory — sedes y contacto. Identidad grafito + ámbar. */
+.branches-section{background:radial-gradient(ellipse at 11% 4%,rgba(242,179,46,.065),transparent 36%),#0b0d0e;color:#fff;position:relative}
+.branches-head{margin-bottom:48px}
+.branches-head .lead{max-width:390px}
+.branch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+.branch-card{background:linear-gradient(150deg,#1c1d20 0%,#121416 72%);border:1px solid #3b3b3c;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:0 22px 56px rgba(0,0,0,.12);transition:border-color .25s,transform .25s}
+.branch-card:hover{border-color:rgba(242,179,46,.55);transform:translateY(-3px)}
+.branch-card__top{padding:35px 35px 23px}
+.branch-card__eyebrow{display:flex;align-items:center;gap:13px;flex-wrap:wrap;color:#bdbec0;font:700 10px/1.5 'Courier New',monospace;letter-spacing:.17em}
+.branch-card__index{color:#ffc65b;background:rgba(242,179,46,.09);border:1px solid rgba(242,179,46,.35);border-radius:4px;padding:7px 10px}
+.branch-card__region{font-size:10px}
+.branch-card h3{font:800 clamp(43px,4.3vw,62px)/.98 var(--heading,'BarlowCondensed',Arial,sans-serif);letter-spacing:0;text-transform:uppercase;margin:29px 0 13px;color:#fff}
+.branch-card h3 span{color:#f2b32e}
+.branch-card__intro{margin:0 0 25px;color:#b9b9bd;font-size:14px;line-height:1.7}
+.branch-contact-detail{display:flex;align-items:flex-start;gap:15px;padding:16px 0;border-top:1px solid rgba(255,255,255,.11);min-height:78px}
+.branch-contact-detail__icon{width:38px;height:38px;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(242,179,46,.09);border:1px solid rgba(242,179,46,.22);border-radius:5px;color:#f2b32e}
+.branch-icon{display:block;width:19px;height:19px;flex:none}
+.branch-contact-detail__body{display:block;min-width:0;flex:1;padding-top:2px}
+.branch-contact-detail__label{display:block;color:#9b9ca3;font:700 10px/1.6 'Courier New',monospace;letter-spacing:.15em;margin-bottom:5px}
+.branch-contact-detail address{font-style:normal;color:#eff0f0;font-size:14px;line-height:1.65}
+.branch-contact-detail strong{font:700 17px/1.4 Arial,sans-serif;color:#f3f3f4;letter-spacing:.02em}
+.branch-contact-detail__trail{color:#f2b32e;align-self:center}
+.branch-contact-detail__trail .branch-icon{width:16px;height:16px}
+.branch-location-status{display:inline-flex;margin-top:8px;color:#c7ac73;font-size:11px}
+.branch-contact-detail--link{text-decoration:none;transition:color .2s}
+.branch-contact-detail--link:hover strong{color:#f2b32e}
+.branch-map{height:247px;position:relative;background:#222527;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12)}
+.branch-map iframe{display:block;width:100%;height:100%;border:0;filter:grayscale(.78) saturate(.5);transition:filter .35s;background:#222527}
+.branch-map:hover iframe,.branch-map:focus-within iframe{filter:none}
+.branch-card__bottom{padding:23px 35px 30px;display:flex;flex-direction:column;flex:1}
+.branch-map-note{display:flex;align-items:flex-start;gap:9px;min-height:45px;color:#b9b9bd;font-size:12px;line-height:1.65;margin:0}
+.branch-map-note .branch-icon{color:#f2b32e;width:15px;height:15px;margin-top:2px}
+.branch-map-note span{flex:1}
+.branch-map-link{color:#f2b32e;display:inline-flex;align-items:center;gap:9px;margin:12px 0 24px;font-weight:700;font-size:11px;letter-spacing:.06em;min-height:28px;text-decoration:underline;text-underline-offset:4px}
+.branch-map-link .branch-icon{width:15px;height:15px}
+.branch-map-link:hover{color:#ffd47e}
+.branch-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:auto}
+.branch-action{display:flex;align-items:center;justify-content:center;gap:11px;padding:14px 17px;min-height:52px;border-radius:4px;text-decoration:none;font:800 13px/1.4 var(--heading,'BarlowCondensed',Arial,sans-serif);letter-spacing:.065em;text-transform:uppercase;text-align:center;transition:background .2s,transform .2s,border-color .2s}
+.branch-action:hover{transform:translateY(-2px)}
+.branch-action .branch-icon{width:18px;height:18px}
+.branch-action--primary{background:#f2b32e;color:#191409;border:1px solid #f2b32e}
+.branch-action--primary:hover{background:#ffcc55;border-color:#ffcc55}
+.branch-action--secondary{background:rgba(255,255,255,.025);color:#f3f3f3;border:1px solid #5b5d61}
+.branch-action--secondary:hover{border-color:#f2b32e;color:#f2b32e}
+.branch-detail-link{display:inline-flex;justify-content:center;align-items:center;gap:7px;margin-top:19px;font:700 11px/1.5 Arial,sans-serif;color:#c8c8ca;text-decoration:none}
+.branch-detail-link:hover{color:#f2b32e}
+.branch-detail-link .branch-icon{width:14px;height:14px}
+@media(max-width:920px){.branch-grid{grid-template-columns:1fr;max-width:690px;margin-inline:auto}.branches-head{gap:25px}.branch-map{height:280px}}
+@media(max-width:600px){.branches-section{padding:75px 0}.branches-head{margin-bottom:31px}.branch-grid{gap:20px}.branch-card__top{padding:26px 23px 18px}.branch-card h3{font-size:50px;margin:24px 0 12px}.branch-card__bottom{padding:20px 23px 27px}.branch-map{height:225px}.branch-contact-detail{gap:11px}.branch-contact-detail__icon{width:35px;height:35px}.branch-action{font-size:12px}.branch-map-note{min-height:0}.branch-card__eyebrow{gap:8px}}
+@media(prefers-reduced-motion:reduce){.branch-card,.branch-action,.branch-map iframe{transition:none}.branch-card:hover,.branch-action:hover{transform:none}}
