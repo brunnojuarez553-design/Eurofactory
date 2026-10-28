@@ -71,3 +71,6 @@ La banda debajo del hero muestra logotipos SVG transparentes de BMW, Mercedes-Be
 
 ## Banner fotográfico de servicios
 La página `/servicios/` utiliza una portada exclusiva con la imagen compartida por el cliente alojada en Cloudinary: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200964/IMG_2838.jpg. La foto se aplica como `background-image` con doble degradado oscuro para asegurar la legibilidad del título y la descripción. Implementación en `public/assets/services-banner.css` (y copia en `dist/assets/`) y en `pagehead(..., extra_class='services-banner')`. La hoja de estilos se carga únicamente en la ruta `/servicios/` con precarga de imagen; no modifica banners de otras páginas.
+
+## Footer premium (2026-10)
+Pie de página rediseñado mediante `footer()` en `scripts/build.py` y hoja `footer-luxe.css?v=1`, con logotipo oficial, redes sociales y mensajería con iconos SVG de Instagram y WhatsApp, enlaces propios, teléfonos por sede, horario sujeto a confirmación, notas legales y enlace accesible para volver arriba. SVG de redes desde Simple Icons (simbolos añadidos a `icons.svg`). Solo se incorporaron Instagram y WhatsApp reales; sin inventar redes adicionales. Su estética conserva grafito, plata y detalles ámbar, adaptándose a escritorio, tablet y móvil.

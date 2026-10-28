@@ -31,6 +31,71 @@ def breadcrumb(*items):
 def brand():
     return '''<a class="logo" href="/" aria-label="Euro Factory, volver al inicio"><img class="logo-official" src="/assets/eurofactory-logo.webp" width="540" height="211" alt="Euro Factory · Garage Premium Automotriz" decoding="async"></a>'''
 
+
+def footer_icon(name, brand_icon=False):
+    extra = ' footer-icon--brand' if brand_icon else ''
+    return f'<svg class="footer-icon{extra}" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#{name}"></use></svg>'
+
+def footer():
+    """Footer premium: identidad, rutas reales y enlaces de contacto verificables."""
+    y = datetime.date.today().year
+    maracay, valencia = LOCATIONS['maracay'], LOCATIONS['valencia']
+    return f'''<footer class="footer footer-luxe" aria-label="Pie de página de Euro Factory">
+<div class="wrap footer-shell">
+  <div class="footer-topline">
+    <div class="footer-kicker"><span class="footer-kicker-dot" aria-hidden="true"></span><span>GARAGE PREMIUM AUTOMOTRIZ</span><span class="footer-kicker-separator" aria-hidden="true"></span><span>MARACAY / VALENCIA</span></div>
+    <a href="/evaluacion/" class="footer-top-cta">Solicitar evaluación {footer_icon('arrow-up-right')}</a>
+  </div>
+  <div class="foot-grid footer-luxe-grid">
+    <div class="foot-identity">
+      {brand()}
+      <p>Precisión técnica, atención cercana y confianza en cada detalle. Servicio automotriz especializado en vehículos europeos, con sedes en Maracay y Valencia.</p>
+      <div class="footer-socials" aria-label="Redes sociales y mensajería">
+        <a href="{E(INSTAGRAM)}" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Instagram de Euro Factory, abre en nueva pestaña" title="Instagram">{footer_icon('instagram', True)}</a>
+        <a href="https://wa.me/{E(maracay['wa'])}" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="WhatsApp de Euro Factory Maracay, abre en nueva pestaña" title="WhatsApp Maracay">{footer_icon('whatsapp', True)}</a>
+        <a href="https://wa.me/{E(valencia['wa'])}" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="WhatsApp de Euro Factory Valencia, abre en nueva pestaña" title="WhatsApp Valencia">{footer_icon('whatsapp', True)}</a>
+      </div>
+      <a class="footer-social-handle" href="{E(INSTAGRAM)}" target="_blank" rel="noopener noreferrer">@eurofactory_ {footer_icon('arrow-up-right')}</a>
+    </div>
+    <nav class="footer-nav-group" aria-label="Explorar el sitio">
+      <h2>Explorar</h2>
+      <a href="/servicios/">Nuestros servicios {footer_icon('arrow-up-right')}</a>
+      <a href="/nosotros/">Quiénes somos {footer_icon('arrow-up-right')}</a>
+      <a href="/galeria/">Galería de trabajos {footer_icon('arrow-up-right')}</a>
+      <a href="/evaluacion/">Solicitar evaluación {footer_icon('arrow-up-right')}</a>
+      <a href="/guias/">Guías técnicas {footer_icon('arrow-up-right')}</a>
+    </nav>
+    <div class="footer-locations">
+      <h2>Nuestras sedes</h2>
+      <div class="footer-location">
+        <div class="footer-location-title">{footer_icon('map-pin')} <a href="/sedes/maracay/">Maracay <span>Aragua</span></a></div>
+        <a class="footer-phone" href="tel:+{E(maracay['wa'])}">{footer_icon('phone')} {E(maracay['phone'])}</a>
+        <a class="footer-whatsapp" href="https://wa.me/{E(maracay['wa'])}" target="_blank" rel="noopener noreferrer">WhatsApp {footer_icon('arrow-up-right')}</a>
+      </div>
+      <div class="footer-location">
+        <div class="footer-location-title">{footer_icon('map-pin')} <a href="/sedes/valencia/">Valencia <span>Carabobo</span></a></div>
+        <a class="footer-phone" href="tel:+{E(valencia['wa'])}">{footer_icon('phone')} {E(valencia['phone'])}</a>
+        <a class="footer-whatsapp" href="https://wa.me/{E(valencia['wa'])}" target="_blank" rel="noopener noreferrer">WhatsApp {footer_icon('arrow-up-right')}</a>
+      </div>
+    </div>
+    <div class="footer-information">
+      <h2>Información</h2>
+      <div class="footer-hours">{footer_icon('clock')}<p><strong>Lunes a viernes</strong><span>8:00 a. m. – 6:00 p. m.</span><small>Horario sujeto a confirmación</small></p></div>
+      <nav class="footer-info-links" aria-label="Información y ayuda">
+        <a href="/preguntas-frecuentes/">Preguntas frecuentes {footer_icon('arrow-up-right')}</a>
+        <a href="/contacto/">Contacto {footer_icon('arrow-up-right')}</a>
+        <a href="/sedes/">Ubicaciones {footer_icon('arrow-up-right')}</a>
+      </nav>
+    </div>
+  </div>
+  <div class="foot-bottom footer-luxe-bottom">
+    <span>© {y} EURO FACTORY. TODOS LOS DERECHOS RESERVADOS.</span>
+    <span>Taller independiente. Las marcas mencionadas pertenecen a sus respectivos titulares.</span>
+    <a href="#" class="footer-backtop">Volver arriba {footer_icon('arrow-up')}</a>
+  </div>
+</div>
+</footer>'''
+
 def layout(path,title,description,body,schema=None,ogtype='website'):
     canonical=URL+path
     if path=='/':canonical=URL+'/'
@@ -45,14 +110,13 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
 <link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/webp" href="/assets/eurofactory-icon.webp">
 <meta property="og:type" content="{ogtype}"><meta property="og:locale" content="es_VE"><meta property="og:site_name" content="Euro Factory"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(URL)}/assets/bmw-detalle.webp">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(description)}">
-<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1"><link rel="stylesheet" href="/assets/premium.css?v=4">{brandbar_css}{services_banner_css}{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}{' intake-page' if path in ('/evaluacion/', '/contacto/') else ''}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
+<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1"><link rel="stylesheet" href="/assets/premium.css?v=4"><link rel="stylesheet" href="/assets/footer-luxe.css?v=1">{brandbar_css}{services_banner_css}{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}{' intake-page' if path in ('/evaluacion/', '/contacto/') else ''}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
 <div class="reading-progress" aria-hidden="true" data-reading-progress></div>
 <header class="header"><div class="wrap header-in">{brand()}<nav class="nav" aria-label="Navegación principal">{navhtml}</nav><div class="nav-cta">{btn('Agenda tu evaluación','/evaluacion/','btn-accent')}<button type="button" class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>☰</button></div></div>
 <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" data-mobile-nav>{navhtml}<a href="/evaluacion/">Solicitar evaluación ↗</a></nav></header>
 <main id="contenido" tabindex="-1">{body}</main>
 <section class="cta-footer"><div class="wrap"><span class="eyebrow">07 / DA EL SIGUIENTE PASO</span><h2>Tu vehículo,<br><span class="outline-text">en buenas manos.</span></h2><p>Cuéntanos qué necesitas. El equipo de tu sede te orienta.</p>{btn('Agenda tu evaluación','/evaluacion/','btn-accent')+btn('Elegir sede','/sedes/','btn-outline')}</div></section>
-<footer class="footer"><div class="wrap"><div class="foot-grid"><div class="foot-identity">{brand()}<p>Taller independiente de servicio automotriz. Especialistas en vehículos europeos, con atención en Maracay y Valencia, Venezuela.</p><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer">Instagram @eurofactory_ ↗</a></div><div><h4>Explorar</h4><a href="/servicios/">Servicios</a><a href="/nosotros/">Quiénes somos</a><a href="/galeria/">Galería</a><a href="/evaluacion/">Evaluación digital</a><a href="/guias/">Guías técnicas</a></div><div><h4>Nuestras sedes</h4><a href="/sedes/maracay/">Maracay · Aragua</a><a href="tel:+584243103283">0424-3103283</a><a href="/sedes/valencia/">Valencia · Carabobo</a><a href="tel:+584144630453">0414-4630453</a><a href="/contacto/">Más información</a></div><div><h4>Información</h4><p>Lunes a viernes<br>8:00 a. m. – 6:00 p. m.<br><small>(horario sujeto a confirmación)</small></p><a href="/preguntas-frecuentes/">Preguntas frecuentes</a><a href="/contacto/">Contacto</a></div></div>
-<div class="foot-bottom"><span>© {datetime.date.today().year} EURO FACTORY. TODOS LOS DERECHOS RESERVADOS.</span><span>Taller independiente. Las marcas automotrices mencionadas son de sus respectivos titulares.</span></div></div></footer>
+{footer()}
 <dialog class="gallery-dialog" data-gallery-dialog aria-label="Imagen de la galería"><button type="button" data-gallery-close aria-label="Cerrar imagen">×</button><img data-gallery-full alt=""><p data-gallery-caption></p></dialog><a class="wa-float" href="/evaluacion/" aria-label="Iniciar solicitud de servicio"><span aria-hidden="true">↗</span> Solicitar evaluación</a>
 <script src="/assets/site.js?v=9" defer></script></body></html>'''
     dest=DEST/path.lstrip('/')/'index.html' if path!='/' else DEST/'index.html'
