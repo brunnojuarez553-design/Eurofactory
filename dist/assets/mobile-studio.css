@@ -516,3 +516,25 @@
 @media(max-width:700px){
  body.footer-visible .wa-float{display:none!important}
 }
+
+
+/* Explicit tracks win over older !important grid-column:auto rules.
+   Identity full width, Explore / Information side-by-side, locations full width. */
+@media(max-width:700px){
+ .footer-luxe .footer-luxe-grid>.foot-identity{
+  grid-row:1!important;
+  grid-column:1/-1!important;
+ }
+ .footer-luxe .footer-luxe-grid>.footer-nav-group{
+  grid-row:2!important;
+  grid-column:1!important;
+ }
+ .footer-luxe .footer-luxe-grid>.footer-information{
+  grid-row:2!important;
+  grid-column:2!important;
+ }
+ .footer-luxe .footer-luxe-grid>.footer-locations{
+  grid-row:3!important;
+  grid-column:1/-1!important;
+ }
+}
