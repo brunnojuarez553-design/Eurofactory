@@ -12,6 +12,13 @@ DEST=ROOT/'dist'
 URL=os.environ.get('SITE_URL','https://eurofactory.example').rstrip('/')
 if not re.match(r'^https://[^/]+$',URL): raise ValueError('SITE_URL debe ser https://dominio.com sin ruta')
 E=lambda s: html.escape(str(s),quote=True)
+
+# Los simbolos de interfaz se sustituyen por SVG (sin glifos Unicode/emoji).
+ICON_SYMBOLS = {"↗":"arrow-up-right","→":"arrow-right","☰":"menu","×":"close","‹":"chevron-left","›":"chevron-right"}
+def render_icons(markup):
+    for char, symbol in ICON_SYMBOLS.items():
+        markup = markup.replace(char, f'<svg class="ui-icon" aria-hidden="true" focusable="false"><use href="/assets/icons.svg#{symbol}"></use></svg>')
+    return markup
 SERVE={s['slug']:s for s in SERVICES}
 ROUTES=[]
 
@@ -36,7 +43,7 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
 <link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/webp" href="/assets/eurofactory-icon.webp">
 <meta property="og:type" content="{ogtype}"><meta property="og:locale" content="es_VE"><meta property="og:site_name" content="Euro Factory"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(URL)}/assets/bmw-detalle.webp">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(description)}">
-<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=5"><link rel="stylesheet" href="/assets/refinement.css?v=5">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
+<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
 <div class="reading-progress" aria-hidden="true" data-reading-progress></div>
 <header class="header"><div class="wrap header-in">{brand()}<nav class="nav" aria-label="Navegación principal">{navhtml}</nav><div class="nav-cta">{btn('Agenda tu evaluación','/evaluacion/','btn-accent')}<button type="button" class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>☰</button></div></div>
 <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" data-mobile-nav>{navhtml}<a href="/evaluacion/">Solicitar evaluación ↗</a></nav></header>
@@ -45,9 +52,9 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
 <footer class="footer"><div class="wrap"><div class="foot-grid"><div class="foot-identity">{brand()}<p>Taller independiente de servicio automotriz. Especialistas en vehículos europeos, con atención en Maracay y Valencia, Venezuela.</p><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer">Instagram @eurofactory_ ↗</a></div><div><h4>Explorar</h4><a href="/servicios/">Servicios</a><a href="/nosotros/">Quiénes somos</a><a href="/galeria/">Galería</a><a href="/evaluacion/">Evaluación digital</a><a href="/guias/">Guías técnicas</a></div><div><h4>Nuestras sedes</h4><a href="/sedes/maracay/">Maracay · Aragua</a><a href="tel:+584243103283">0424-3103283</a><a href="/sedes/valencia/">Valencia · Carabobo</a><a href="tel:+584144630453">0414-4630453</a><a href="/contacto/">Más información</a></div><div><h4>Información</h4><p>Lunes a viernes<br>8:00 a. m. – 6:00 p. m.<br><small>(horario sujeto a confirmación)</small></p><a href="/preguntas-frecuentes/">Preguntas frecuentes</a><a href="/contacto/">Contacto</a></div></div>
 <div class="foot-bottom"><span>© {datetime.date.today().year} EURO FACTORY. TODOS LOS DERECHOS RESERVADOS.</span><span>Taller independiente. Las marcas automotrices mencionadas son de sus respectivos titulares.</span></div></div></footer>
 <dialog class="gallery-dialog" data-gallery-dialog aria-label="Imagen de la galería"><button type="button" data-gallery-close aria-label="Cerrar imagen">×</button><img data-gallery-full alt=""><p data-gallery-caption></p></dialog><a class="wa-float" href="/evaluacion/" aria-label="Iniciar solicitud de servicio"><span aria-hidden="true">↗</span> Solicitar evaluación</a>
-<script src="/assets/site.js?v=5" defer></script></body></html>'''
+<script src="/assets/site.js?v=6" defer></script></body></html>'''
     dest=DEST/path.lstrip('/')/'index.html' if path!='/' else DEST/'index.html'
-    dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(html_text,encoding='utf-8')
+    dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(render_icons(html_text),encoding='utf-8')
     ROUTES.append(path)
 
 def pagehead(label,title,description,trail):
@@ -134,5 +141,5 @@ for g in GUIDES:
 shutil.copytree(ROOT/'public'/'assets',DEST/'assets',dirs_exist_ok=True)
 (DEST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{E(URL+p)}</loc></url>\n' for p in ROUTES)+'</urlset>\n',encoding='utf-8')
 (DEST/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+URL+'/sitemap.xml\n',encoding='utf-8')
-(DEST/'404.html').write_text('<!doctype html><html lang="es-VE"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>No encontramos esa página | Euro Factory</title><style>body{font-family:Arial;background:#090a0b;color:#fff;margin:15vh auto;width:min(90%,650px)}a{color:#f2b32e}</style><h1>404 — No encontramos esta página.</h1><p>Podés volver al inicio para seguir explorando.</p><a href="/">Volver a Euro Factory →</a></html>',encoding='utf-8')
+(DEST/'404.html').write_text(render_icons('<!doctype html><html lang="es-VE"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>No encontramos esa página | Euro Factory</title><style>body{font-family:Arial;background:#090a0b;color:#fff;margin:15vh auto;width:min(90%,650px)}a{color:#f2b32e}</style><h1>404 — No encontramos esta página.</h1><p>Podés volver al inicio para seguir explorando.</p><a href="/">Volver a Euro Factory →</a></html>'),encoding='utf-8')
 print('Built:',len(ROUTES),'pages | SITE_URL:',URL)

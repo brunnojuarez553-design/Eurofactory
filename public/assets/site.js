@@ -5,14 +5,14 @@
     const narrow = window.matchMedia("(max-width: 1100px)");
     function closeMenu(restoreFocus = false) {
       mobile.classList.remove("open"); document.body.classList.remove("menu-open");
-      toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Abrir menú"); toggle.textContent = "☰";
+      toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Abrir menú"); toggle.innerHTML = "<svg class=\"ui-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/assets/icons.svg#menu\"></use></svg>";
       mobile.inert = narrow.matches;
       if (restoreFocus) toggle.focus();
     }
     toggle.addEventListener("click", () => {
       if (mobile.classList.contains("open")) { closeMenu(); return; }
       mobile.inert = false; mobile.classList.add("open"); document.body.classList.add("menu-open");
-      toggle.setAttribute("aria-expanded", "true"); toggle.setAttribute("aria-label", "Cerrar menú"); toggle.textContent = "×";
+      toggle.setAttribute("aria-expanded", "true"); toggle.setAttribute("aria-label", "Cerrar menú"); toggle.innerHTML = "<svg class=\"ui-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/assets/icons.svg#close\"></use></svg>";
       mobile.querySelector("a")?.focus();
     });
     mobile.querySelectorAll("a").forEach(a => a.addEventListener("click", () => closeMenu()));
@@ -119,12 +119,12 @@
       const sedeLabel = sede === 'valencia' ? 'Valencia' : 'Maracay';
       const pairs = [
         'Hola, equipo de Euro Factory. Quiero solicitar una evaluación técnica.',
-        '', '📍 Sede: ' + sedeLabel,
-        '🚘 Vehículo: ' + f.get('marca') + ' ' + f.get('modelo') + ' (' + f.get('anio') + ')',
-        '🛠️ Servicio: ' + f.get('servicio'),
-        '📋 Consulta: ' + f.get('consulta'),
-        '👤 Nombre: ' + f.get('nombre'),
-        '📲 Contacto: ' + f.get('telefono'),
+        '', 'Sede: ' + sedeLabel,
+        'Vehículo: ' + f.get('marca') + ' ' + f.get('modelo') + ' (' + f.get('anio') + ')',
+        'Servicio: ' + f.get('servicio'),
+        'Consulta: ' + f.get('consulta'),
+        'Nombre: ' + f.get('nombre'),
+        'Contacto: ' + f.get('telefono'),
         '', '¿Me pueden orientar con disponibilidad y próximos pasos?'
       ];
       const msg = pairs.join('\n');
