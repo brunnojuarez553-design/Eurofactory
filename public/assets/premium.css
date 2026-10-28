@@ -589,3 +589,22 @@ small{line-height:1.6}
  .header .logo .logo-official{width:min(144px,44vw)}
  .home-page .hero-content{width:calc(100% - 32px)}
 }
+
+
+/* Scroll-direction navigation: hidden while descending, visible while ascending.
+   Applies to the integrated, full-width bar on every page. */
+.header,
+.home-page .header,
+.home-page .header.is-scrolled,
+.inner-page .header{
+ transition:transform .28s cubic-bezier(.22,1,.36,1),background-color .22s ease,box-shadow .22s ease;
+}
+.home-page .header.is-nav-hidden,
+.home-page .header.is-scrolled.is-nav-hidden,
+.inner-page .header.is-nav-hidden{
+ transform:translate3d(0,calc(-100% - 3px),0)!important;
+ pointer-events:none;
+}
+@media(prefers-reduced-motion:reduce){
+ .header,.home-page .header,.home-page .header.is-scrolled,.inner-page .header{transition:none!important}
+}

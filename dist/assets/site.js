@@ -5,6 +5,7 @@
     const narrow = window.matchMedia("(max-width: 1180px)");
     function closeMenu(restoreFocus = false) {
       mobile.classList.remove("open"); document.body.classList.remove("menu-open");
+      document.querySelector('.header')?.classList.remove('is-nav-hidden');
       toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Abrir menú"); toggle.innerHTML = "<svg class=\"ui-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/assets/icons.svg#menu\"></use></svg>";
       mobile.inert = narrow.matches;
       if (restoreFocus) toggle.focus();
@@ -12,6 +13,7 @@
     toggle.addEventListener("click", () => {
       if (mobile.classList.contains("open")) { closeMenu(); return; }
       mobile.inert = false; mobile.classList.add("open"); document.body.classList.add("menu-open");
+      document.querySelector('.header')?.classList.remove('is-nav-hidden');
       toggle.setAttribute("aria-expanded", "true"); toggle.setAttribute("aria-label", "Cerrar menú"); toggle.innerHTML = "<svg class=\"ui-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/assets/icons.svg#close\"></use></svg>";
       mobile.querySelector("a")?.focus();
     });
@@ -41,13 +43,43 @@
   const header = document.querySelector('.header');
   const progressBar = document.querySelector('[data-reading-progress]');
   let scrollQueued = false;
+  let lastScrollY = Math.max(0, window.scrollY);
+  let directionStartY = lastScrollY;
+  let scrollDirection = 0;
   function updateScroll() {
+    const y = Math.max(0, window.scrollY);
     const max = document.documentElement.scrollHeight - window.innerHeight;
-    if (progressBar) progressBar.style.width = (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%';
-    header?.classList.toggle('is-scrolled', window.scrollY > 60);
+    if (progressBar) progressBar.style.width = (max > 0 ? Math.min(100, y / max * 100) : 0) + '%';
+    header?.classList.toggle('is-scrolled', y > 60);
+    if (header) {
+      if (y <= 80 || document.body.classList.contains('menu-open')) {
+        // Always show at the top and while the mobile navigation is open.
+        header.classList.remove('is-nav-hidden');
+        directionStartY = y;
+        scrollDirection = 0;
+      } else {
+        const delta = y - lastScrollY;
+        if (Math.abs(delta) > 0) {
+          const nextDirection = Math.sign(delta);
+          if (nextDirection !== scrollDirection) {
+            scrollDirection = nextDirection;
+            directionStartY = lastScrollY;
+          }
+          // Ignore tiny touchpad/trackpad movements to avoid flickering.
+          if (Math.abs(y - directionStartY) >= 14) {
+            header.classList.toggle('is-nav-hidden', nextDirection > 0);
+            directionStartY = y;
+          }
+        }
+      }
+    }
+    lastScrollY = y;
     scrollQueued = false;
   }
-  window.addEventListener('scroll', () => { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(updateScroll); } }, {passive:true});
+  header?.addEventListener('focusin', () => header.classList.remove('is-nav-hidden'));
+  window.addEventListener('scroll', () => {
+    if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(updateScroll); }
+  }, {passive:true});
   window.addEventListener('resize', updateScroll); updateScroll();
 
   const hero = document.querySelector('[data-hero-carousel]');
