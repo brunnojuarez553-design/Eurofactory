@@ -188,3 +188,16 @@
     form.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',()=>{ preview?.classList.remove('visible'); updateProgress(); }));
   });
 })();
+
+/* Deferred concierge bootstrap, available on all pages without changing SEO markup. */
+(function () {
+  if (document.querySelector('[data-ef-concierge]')) return;
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = '/assets/assistant.css?v=1';
+  document.head.appendChild(css);
+  const js = document.createElement('script');
+  js.src = '/assets/assistant.js?v=1';
+  js.defer = true;
+  document.head.appendChild(js);
+})();
