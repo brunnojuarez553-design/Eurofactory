@@ -54,3 +54,12 @@ El diseño premium carga `premium.css?v=2`. **Nunca** centrar un encabezado `pos
 
 ## Hero full screen y navegación integrada
 Inicio: hero **full-bleed** (`width:100%`, altura inicial `100svh`) sin bordes ni márgenes; la foto conserva `object-fit:cover`. La barra superior ocupa todo el ancho y se superpone a la imagen al inicio; al desplazarse queda fija. En las páginas internas la barra es sticky, también a ancho completo y sin transformación horizontal. El menú móvil se activa a 1180px tanto en CSS como en JS y se despliega justo debajo del header. Fuentes en `public/assets/premium.css` (v3) y `public/assets/site.js` (v7); sincronizar las versiones de `dist/assets/` y los HTML prerenderizados para evitar caché de Vercel.
+
+## Fotografías de galería actualizadas (octubre de 2026)
+Las tarjetas de **BMW**, **Audi** y **Vehículos europeos** usan las fotografías originales alojadas en Cloudinary, provistas por el cliente. Los enlaces se mantienen exactamente en `gallery_section()` de `scripts/build.py`; tanto la imagen como el enlace de ampliación apuntan a la misma foto. Los cambios están reflejados también en `dist/index.html` y `dist/galeria/index.html`.
+
+- BMW: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200966/IMG_2829.jpg
+- Audi: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200959/IMG_2832.jpg
+- Vehículos europeos: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200961/IMG_2841.jpg
+
+Las otras fotografías permanecen locales. El navegador del visitante debe tener acceso a Cloudinary; verificar la disponibilidad remota tras desplegar.
