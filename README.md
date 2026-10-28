@@ -29,7 +29,7 @@ SITE_URL=https://TU-DOMINIO-REAL.com python3 scripts/build.py
 
 ## Vercel
 
-Subir el proyecto a GitHub y enlazarlo con Vercel con Framework Preset **Other**, directorio de salida `dist`, sin comando de build si mantenés `dist/` versionado. El `vercel.json` ya define `outputDirectory`. Si cambiás la información, regenerá `dist/` localmente y subí ese resultado. También podés automatizar `python3 scripts/build.py` en CI con `SITE_URL` configurado.
+Importar el repositorio con Framework Preset **Other**, salida `dist` y comando `node scripts/vercel-build.mjs`. La configuración está incluida en `vercel.json`. El build adapta el dominio de SEO al despliegue. Si cambias el contenido, regenera `dist/` con Python localmente y sube el resultado.
 
 ## Herramienta digital
 
@@ -64,3 +64,9 @@ La herramienta no guarda información personal; el mensaje sale por WhatsApp sol
 Importar en Vercel con Framework Preset **Other**, Root Directory **.**, Build Command **node scripts/vercel-build.mjs** y Output Directory **dist**. No requiere instalación de dependencias. La configuración está incluida en vercel.json.
 
 El build adapta canonical, Open Graph, JSON-LD, robots.txt y sitemap al dominio de producción provisto por Vercel. Si se conecta un dominio propio, definir SITE_URL=https://dominio-real.com y volver a desplegar. SITE_URL tiene prioridad sobre VERCEL_PROJECT_PRODUCTION_URL y VERCEL_URL. No se requiere Python en Vercel: dist está versionado. Para cambios de contenido, ejecutar el generador Python localmente y subir dist actualizado.
+
+## Refinamiento UI/UX
+
+Sistema de grafito, marfil y salvia; tokens de tres capas en public/assets/refinement.css y guía en docs/brand-guidelines.md. Incluye SVGs de servicios, portada con accesos a sedes, enlace para saltar al contenido, menú con foco y Escape, progreso del formulario y revisión enfocada antes de WhatsApp. El botón flotante se oculta al mostrar las llamadas a la acción principales.
+
+Verificación: 375, 768, 1024 y 1440 px sin desbordamiento horizontal; menú por teclado; mensajes WhatsApp de ambas sedes; invalidación de vista previa al editar; movimiento reducido; 22 HTML y 21 JSON-LD sin enlaces internos rotos.
