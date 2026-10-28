@@ -1,11 +1,9 @@
-# Euro Factory · Sistema visual
+# Euro Factory · Dirección de lujo
 
-Dirección: precisión automotriz, editorial y sobria. Grafito, marfil y salvia; fotografías existentes. No inventar acreditaciones, reseñas ni cifras. Monograma EF provisional conservado.
+Negro obsidiana #0c0c0b, marfil cálido #eeeae0 y champán #d0b98a. Titulares editoriales en Georgia y texto funcional sans serif. Espacio generoso, líneas finas, geometría recta, fotografías del taller existentes y saturación contenida.
 
-Tipografía: sans serif del sistema para navegación y contenido; Georgia en titulares de énfasis. Cuerpo de 16 px y controles táctiles de al menos 44 px.
+Portada con composición asimétrica y fotografía enmarcada. Servicios en dos columnas, fichas de sedes editoriales y formulario oscuro con controles de 16 px. Mantener enfoque visible, menú con teclado y preferencias de movimiento reducido.
 
-Tokens: primitivos → semánticos → componentes en public/assets/refinement.css. Estados: hover, focus-visible, activo; movimiento reducido respetado.
+Tono claro, español neutro y orientación técnica. No inventar acreditaciones, testimonios ni garantías. Logo EF provisional conservado. El mensaje de WhatsApp se revisa antes de enviarse.
 
-Voz: español claro y directo, orientación técnica sin promesas de diagnóstico o reservas automáticas. Las consultas se revisan antes de abrir WhatsApp.
-
-Mantener las rutas prerenderizadas, metadatos y datos estructurados por sede.
+Tokens primitivos → semánticos → componentes en public/assets/refinement.css. Mantener rutas, metadatos y datos estructurados por sede.

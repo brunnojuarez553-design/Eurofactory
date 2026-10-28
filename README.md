@@ -67,6 +67,12 @@ El build adapta canonical, Open Graph, JSON-LD, robots.txt y sitemap al dominio 
 
 ## Refinamiento UI/UX
 
-Sistema de grafito, marfil y salvia; tokens de tres capas en public/assets/refinement.css y guía en docs/brand-guidelines.md. Incluye SVGs de servicios, portada con accesos a sedes, enlace para saltar al contenido, menú con foco y Escape, progreso del formulario y revisión enfocada antes de WhatsApp. El botón flotante se oculta al mostrar las llamadas a la acción principales.
+Sistema de negro obsidiana, marfil cálido y champán; tokens de tres capas en public/assets/refinement.css y guía en docs/brand-guidelines.md. Incluye SVGs de servicios, portada con accesos a sedes, enlace para saltar al contenido, menú con foco y Escape, progreso del formulario y revisión enfocada antes de WhatsApp. El botón flotante se oculta al mostrar las llamadas a la acción principales.
 
 Verificación: 375, 768, 1024 y 1440 px sin desbordamiento horizontal; menú por teclado; mensajes WhatsApp de ambas sedes; invalidación de vista previa al editar; movimiento reducido; 22 HTML y 21 JSON-LD sin enlaces internos rotos.
+
+## Dirección premium
+
+Portada editorial asimétrica con fotografía enmarcada, tipografía serif de gran escala, acentos champán, servicios en dos columnas y formulario oscuro. La misma dirección se aplica a sedes, guías, contacto y páginas de servicio. Fotografías y funciones existentes conservadas.
+
+Verificado en 320, 375, 768, 1024 y 1440 px; 30 combinaciones de páginas y tamaños sin desbordamiento horizontal. JSON-LD, enlaces internos, menú por teclado, reducción de movimiento y WhatsApp de ambas sedes verificados.
