@@ -33,11 +33,13 @@
   const floating = document.querySelector('.wa-float');
   if (floating && 'IntersectionObserver' in window) {
     const visible = new Set();
+    const footer = document.querySelector('.footer-luxe');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
       floating.hidden = visible.size > 0;
+      if (footer) document.body.classList.toggle('footer-visible', visible.has(footer));
     });
-    document.querySelectorAll('.hero, .tool-card, .cta-footer').forEach(el => observer.observe(el));
+    document.querySelectorAll('.hero, .tool-card, .cta-footer, .footer-luxe').forEach(el => observer.observe(el));
   }
 
   const header = document.querySelector('.header');
