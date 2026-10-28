@@ -21,6 +21,7 @@ def render_icons(markup):
     return markup
 SERVE={s['slug']:s for s in SERVICES}
 SERVICE_CARD_IMAGE_OVERRIDES = {
+    "mecanica-especializada": "https://res.cloudinary.com/pcuis0hp/image/upload/v1793200966/IMG_2829.jpg",
     "frenos": "https://res.cloudinary.com/pcuis0hp/image/upload/v1793200963/IMG_2834.jpg",
     "suspension": "https://res.cloudinary.com/pcuis0hp/image/upload/v1793200963/IMG_2834.jpg",
     "mantenimiento-preventivo": "https://res.cloudinary.com/pcuis0hp/image/upload/v1793200965/IMG_2831.jpg",
