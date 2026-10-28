@@ -37,13 +37,14 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
     navs=[('Inicio','/'),('Servicios','/servicios/'),('Nosotros','/nosotros/'),('Galería','/galeria/'),('Sedes','/sedes/'),('Guías','/guias/'),('Contacto','/contacto/')]
     navhtml=''.join(f'<a href="{u}" '+('aria-current="page"' if (path==u or path.startswith(u) and u!='/') else '')+f'>{E(t)}</a>' for t,u in navs)
     schema_script=f'<script type="application/ld+json">{json.dumps(schema,ensure_ascii=False,separators=(",",":"))}</script>' if schema else ''
+    brandbar_css='<link rel="stylesheet" href="/assets/brand-marquee.css?v=1">' if path=='/' else ''
     html_text=f'''<!doctype html><html lang="es-VE"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090a0b">
 <title>{E(title)}</title><meta name="description" content="{E(description)}"><meta name="author" content="Euro Factory">
 <link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/webp" href="/assets/eurofactory-icon.webp">
 <meta property="og:type" content="{ogtype}"><meta property="og:locale" content="es_VE"><meta property="og:site_name" content="Euro Factory"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(URL)}/assets/bmw-detalle.webp">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(description)}">
-<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1"><link rel="stylesheet" href="/assets/premium.css?v=4">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}{' intake-page' if path in ('/evaluacion/', '/contacto/') else ''}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
+<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1"><link rel="stylesheet" href="/assets/premium.css?v=4">{brandbar_css}{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}{' intake-page' if path in ('/evaluacion/', '/contacto/') else ''}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
 <div class="reading-progress" aria-hidden="true" data-reading-progress></div>
 <header class="header"><div class="wrap header-in">{brand()}<nav class="nav" aria-label="Navegación principal">{navhtml}</nav><div class="nav-cta">{btn('Agenda tu evaluación','/evaluacion/','btn-accent')}<button type="button" class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>☰</button></div></div>
 <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" data-mobile-nav>{navhtml}<a href="/evaluacion/">Solicitar evaluación ↗</a></nav></header>
@@ -160,9 +161,40 @@ def faq_section():
 def process_section():
     return """<section class="section process-section"><div class="wrap"><div class="section-head"><div><div class="eyebrow">04 / NUESTRA FORMA DE TRABAJAR</div><h2 class="title">Tu confianza<br>se gana en cada detalle.</h2></div><p class="lead">Un proceso claro, desde la primera consulta hasta la evaluación técnica.</p></div><div class="process-grid"><article><span>01</span><h3>Primero, escuchamos.</h3><p>Nos compartes el vehículo, los síntomas y el servicio que necesitas.</p></article><article><span>02</span><h3>Evaluamos con criterio.</h3><p>El diagnóstico y el alcance se definen según el estado real de tu vehículo.</p></article><article><span>03</span><h3>Hablamos claro.</h3><p>El equipo de tu sede te orienta sobre disponibilidad y próximos pasos.</p></article></div></div></section>"""
 
+def brand_carousel():
+    """Carousel de marcas automotrices en SVG locales, continuo y accesible."""
+    marks = [
+        ('BMW', 'bmw'),
+        ('Mercedes-Benz', 'mercedes-benz'),
+        ('Audi', 'audi'),
+        ('Volkswagen', 'volkswagen'),
+        ('SEAT', 'seat'),
+    ]
+    def items(duplicate=False):
+        return ''.join(
+            f'<li class="brandbar-item brandbar-item--{slug}">'
+            f'<img class="brandbar-logo" src="/assets/brands/{slug}.svg" alt="{"" if duplicate else E(name)}" '
+            f'width="80" height="80" decoding="async"></li>'
+            for name, slug in marks
+        )
+    return (
+        '<section class="brandbar" aria-labelledby="brandbar-heading">'
+        '<div class="wrap brandbar-in">'
+        '<div class="brandbar-copy">'
+        '<span class="brandbar-kicker">ESPECIALIZACIÓN EUROPEA</span>'
+        '<h2 class="brandbar-heading" id="brandbar-heading">Marcas que conocemos.</h2>'
+        '</div>'
+        '<div class="brandbar-viewport">'
+        '<div class="brandbar-track">'
+        '<ul class="brandbar-set" aria-label="BMW, Mercedes-Benz, Audi, Volkswagen y SEAT">'
+        + items() + '</ul>'
+        '<ul class="brandbar-set" aria-hidden="true">' + items(True) + '</ul>'
+        '</div></div></div></section>'
+    )
+
 def home():
     hero="""<section class="hero" data-hero-carousel aria-roledescription="carrusel" aria-label="Euro Factory: especialización automotriz"><img class="hero-background" data-hero-image src="/assets/performance-hero.webp" alt="Imagen de ambientación: deportivo europeo en un entorno de taller" width="1672" height="941" fetchpriority="high"><div class="hero-shade"></div><div class="wrap hero-content"><span class="hero-kicker" data-hero-kicker>ESPECIALISTAS EN VEHÍCULOS EUROPEOS</span><h1 class="hero-heading" data-hero-title>Tu auto merece<br><em>EURO FACTORY.</em></h1><p data-hero-copy>Diagnóstico, mantenimiento y mecánica especializada. Precisión técnica y atención personalizada en Maracay y Valencia.</p><div class="hero-actions">"""+btn('Solicitar evaluación','/evaluacion/','btn-accent')+btn('Conoce nuestros servicios','/servicios/','btn-outline')+"""</div><div class="hero-meta"><span>MARACAY / ARAGUA</span><span>VALENCIA / CARABOBO</span></div></div><button class="hero-arrow prev" data-hero-prev aria-label="Ver imagen anterior">‹</button><button class="hero-arrow next" data-hero-next aria-label="Ver imagen siguiente">›</button><div class="hero-pagination"><span data-hero-count aria-live="polite">01 / 03</span><div class="hero-dots"><button data-hero-slide="0" aria-label="Ver portada" aria-pressed="true"></button><button data-hero-slide="1" aria-label="Ver especialización" aria-pressed="false"></button><button data-hero-slide="2" aria-label="Ver atención" aria-pressed="false"></button></div></div><small class="hero-image-note" data-hero-note>Imagen de ambientación</small></section>"""
-    brands="""<div class="brandbar"><div class="wrap brandbar-in"><small>ESPECIALIZACIÓN EUROPEA</small><span>BMW</span><span>MERCEDES-BENZ</span><span>AUDI</span><span>VOLKSWAGEN</span><span>SEAT</span></div></div>"""
+    brands=brand_carousel()
     selector="""<section class="consult-strip"><div class="wrap consult-strip-in"><div><span class="eyebrow">01 / EMPIEZA AQUÍ</span><h2>Prepara tu visita.</h2></div><form action="/evaluacion/" class="visit-selector"><label>Tu sede<select name="sede"><option value="maracay">Maracay · Aragua</option><option value="valencia">Valencia · Carabobo</option></select></label><label>Tu vehículo<select name="marca"><option value="">Selecciona la marca</option><option>BMW</option><option>Mercedes-Benz</option><option>Audi</option><option>Volkswagen</option><option>SEAT</option><option>Otra marca</option></select></label><button type="submit" class="btn btn-accent">CONTINUAR <span aria-hidden="true">→</span></button></form></div></section>"""
     return hero+brands+selector+services_section(4)+gallery_section()+evidence_section()+process_section()+tool_section()+locations_section()+faq_section()
 

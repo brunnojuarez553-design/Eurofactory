@@ -1,0 +1,123 @@
+/* EURO FACTORY · Carrusel infinito de logotipos europeos. SVG transparentes locales. */
+.brandbar{
+ position:relative;
+ padding:19px 0;
+ overflow:hidden;
+ background:linear-gradient(180deg,#12151a 0%,#0e1115 100%);
+ border-top:1px solid rgba(255,255,255,.10);
+ border-bottom:1px solid rgba(255,255,255,.10);
+}
+.brandbar::before{
+ content:"";position:absolute;pointer-events:none;inset:0;
+ background:radial-gradient(ellipse at 44% 0%,rgba(242,179,46,.055),transparent 57%);
+}
+.brandbar .brandbar-in{
+ width:min(calc(100% - 72px),1280px);
+ margin:0 auto;
+ display:grid;
+ grid-template-columns:minmax(180px,233px) minmax(0,1fr);
+ align-items:center;
+ gap:clamp(15px,2.4vw,38px);
+}
+.brandbar-copy{
+ display:flex;flex-direction:column;justify-content:center;
+ min-width:0;padding:13px 25px 13px 0;
+ border-right:1px solid rgba(255,255,255,.14);
+}
+.brandbar .brandbar-kicker{
+ display:block;
+ width:auto;
+ font:700 10px/1.5 var(--ui-font,"Segoe UI",Arial,sans-serif);
+ color:#efbf65;
+ letter-spacing:.15em;
+ text-transform:uppercase;
+}
+.brandbar .brandbar-heading{
+ font:700 clamp(15px,1.3vw,19px)/1.35 var(--ui-font,"Segoe UI",Arial,sans-serif);
+ letter-spacing:-.035em;
+ text-transform:none;
+ color:#f1f0ee;
+ margin:6px 0 0;
+ white-space:normal;
+}
+.brandbar-viewport{
+ min-width:0;width:100%;position:relative;overflow:hidden;
+ -webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);
+ mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);
+}
+.brandbar-track{
+ display:flex;
+ align-items:center;
+ width:max-content;
+ transform:translate3d(0,0,0);
+ animation:brandbar-infinite 31s linear infinite;
+ will-change:transform;
+}
+.brandbar-set{
+ flex:0 0 auto;
+ display:flex;align-items:center;
+ margin:0;padding:0;
+ list-style:none;
+ gap:0;
+}
+.brandbar-item{
+ position:relative;
+ display:grid;place-items:center;
+ flex:0 0 172px;
+ width:172px;
+ height:106px;
+ padding:12px 24px;
+ list-style:none;
+}
+.brandbar-logo{
+ display:block;
+ width:76px;
+ height:76px;
+ max-width:100%;
+ object-fit:contain;
+ opacity:.8;
+ filter:brightness(0) invert(.89);
+ transition:opacity .25s ease, filter .25s ease, transform .25s ease;
+ user-select:none;
+ -webkit-user-drag:none;
+}
+.brandbar-item--mercedes-benz .brandbar-logo{width:72px;height:72px}
+.brandbar-item--volkswagen .brandbar-logo{width:72px;height:72px}
+.brandbar-item--seat .brandbar-logo{width:69px;height:69px}
+.brandbar-item--audi .brandbar-logo{width:106px;height:96px;max-width:none}
+.brandbar-item:hover .brandbar-logo{
+ opacity:1;
+ filter:brightness(0) saturate(100%) invert(80%) sepia(40%) saturate(889%) hue-rotate(339deg) brightness(102%) contrast(95%);
+ transform:scale(1.075);
+}
+.brandbar-viewport:hover .brandbar-track{animation-play-state:paused}
+@keyframes brandbar-infinite{
+ from{transform:translate3d(0,0,0)}
+ to{transform:translate3d(-50%,0,0)}
+}
+@media(max-width:900px){
+ .brandbar{padding:18px 0}
+ .brandbar .brandbar-in{grid-template-columns:175px minmax(0,1fr);gap:16px}
+ .brandbar-copy{padding-right:12px}
+ .brandbar-item{flex-basis:146px;width:146px;height:94px;padding-inline:16px}
+ .brandbar-logo{width:67px;height:67px}
+ .brandbar-item--audi .brandbar-logo{width:102px;height:92px}
+}
+@media(max-width:650px){
+ .brandbar{padding:23px 0 17px}
+ .brandbar .brandbar-in{width:100%;display:flex;flex-direction:column;gap:14px}
+ .brandbar-copy{align-items:center;text-align:center;padding:0 22px;border-right:0}
+ .brandbar .brandbar-kicker{font-size:10px}
+ .brandbar .brandbar-heading{font-size:17px;margin-top:4px}
+ .brandbar-viewport{width:100%}
+ .brandbar-track{animation-duration:27s}
+ .brandbar-item{flex-basis:136px;width:136px;height:85px;padding-inline:12px}
+ .brandbar-logo{width:61px;height:61px}
+ .brandbar-item--mercedes-benz .brandbar-logo,.brandbar-item--volkswagen .brandbar-logo{width:60px;height:60px}
+ .brandbar-item--seat .brandbar-logo{width:57px;height:57px}
+ .brandbar-item--audi .brandbar-logo{width:96px;height:85px}
+}
+@media(prefers-reduced-motion:reduce){
+ .brandbar-track{animation:none;transform:none;will-change:auto}
+ .brandbar-set[aria-hidden="true"]{display:none}
+}

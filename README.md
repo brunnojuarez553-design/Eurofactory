@@ -63,3 +63,8 @@ Las tarjetas de **BMW**, **Audi** y **Vehículos europeos** usan las fotografía
 - Vehículos europeos: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200961/IMG_2841.jpg
 
 Las otras fotografías permanecen locales. El navegador del visitante debe tener acceso a Cloudinary; verificar la disponibilidad remota tras desplegar.
+
+## Carrusel de marcas europeas (2026-10)
+La banda debajo del hero muestra logotipos SVG transparentes de BMW, Mercedes-Benz, Audi, Volkswagen y SEAT, guardados localmente en `public/assets/brands/` y `dist/assets/brands/`. La secuencia duplicada solo visualmente (`aria-hidden="true"` en la segunda lista) garantiza desplazamiento CSS continuo (`translateX(-50%)`), pausa con hover y respeta `prefers-reduced-motion`. El marcado original se genera mediante `brand_carousel()` en `scripts/build.py`, con CSS dedicado `brand-marquee.css` solo en inicio, sin JS ni dependencia de terceros durante la navegación.
+
+**Procedencia:** vectores de [Sim1Who/CarBrands](https://github.com/Sim1Who/CarBrands); las marcas son propiedad de sus titulares y su presencia solo expresa especialización técnica del taller independiente, sin atribuir relación comercial ni autorización de fabricante.
