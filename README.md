@@ -43,3 +43,8 @@ Confirmar con el taller teléfonos, horarios y direcciones antes de la publicaci
 
 ## Iconografia SVG
 Toda la iconografia de accion (flechas, botones, navegacion, controles de galeria/carrusel) usa SVG desde `/assets/icons.svg` en lugar de caracteres Unicode o emojis. El generador `scripts/build.py` aplica estos iconos a las 21 paginas estaticas. El menu movil alterna iconos SVG desde `site.js`. Los mensajes preparados para WhatsApp usan etiquetas de texto sin emojis, porque un mensaje no admite SVG.
+
+## Sección de contacto por sede (mapas)
+La sección de sedes de Inicio, Contacto y Sedes presenta tarjetas independientes con teléfono, WhatsApp de cada sede, acceso al formulario con sede preseleccionada, enlace a la página individual y Google Maps integrado mediante una búsqueda sin clave API. Diseño: `public/assets/locations.css`. Generación: `locations_section()` en `scripts/build.py`.
+
+**Ubicaciones:** Maracay usa la dirección publicada en Los Olivos Viejos, calle Rivas con Casanova Godoy, galpón 77. Valencia solo tiene confirmada la zona de El Viñedo; por eso el mapa es referencial y se pide confirmar la dirección exacta con el taller. Los mapas son búsquedas, no pines GPS verificados. Confirmar ubicación y horarios con el cliente antes de declarar una dirección definitiva.
