@@ -87,14 +87,14 @@
     const slides = [
       {image:'performance-hero.webp', alt:'Imagen de ambientación: deportivo europeo en un entorno de taller', kicker:'ESPECIALISTAS EN VEHÍCULOS EUROPEOS', line:'Tu auto merece', accent:'EURO FACTORY.', copy:'Diagnóstico, mantenimiento y mecánica especializada. Precisión técnica y atención personalizada en Maracay y Valencia.', note:'Imagen de ambientación'},
       {image:'bmw-detalle.webp', alt:'Detalle de un BMW compartido por Euro Factory', kicker:'DIAGNÓSTICO / MANTENIMIENTO / MECÁNICA', line:'Precisión técnica.', accent:'CUIDADO REAL.', copy:'Tu vehículo necesita criterio, atención y un proceso claro. Cuéntanos qué sucede y recibe orientación del equipo.', note:'Material de Euro Factory'},
-      {image:'auto-audi.webp', alt:'Vehículo Audi del material compartido por Euro Factory', kicker:'MARACAY + VALENCIA', line:'Dos sedes.', accent:'UN MISMO ESTÁNDAR.', copy:'Elige la ubicación que te quede mejor. Prepara tu consulta y contacta directamente al equipo de tu sede.', note:'Material de Euro Factory'}
+      {image:'https://res.cloudinary.com/pcuis0hp/image/upload/v1793200961/IMG_2841.jpg', alt:'Fotografía de vehículo europeo compartida por Euro Factory', kicker:'MARACAY + VALENCIA', line:'Dos sedes.', accent:'UN MISMO ESTÁNDAR.', copy:'Elige la ubicación que te quede mejor. Prepara tu consulta y contacta directamente al equipo de tu sede.', note:'Material de Euro Factory'}
     ];
     let active = 0;
     function showSlide(index) {
       active = (index + slides.length) % slides.length;
       const slide = slides[active];
       const image = hero.querySelector('[data-hero-image]');
-      image.src = '/assets/' + slide.image; image.alt = slide.alt;
+      image.src = /^https:\/\//.test(slide.image) ? slide.image : '/assets/' + slide.image; image.alt = slide.alt;
       hero.querySelector('[data-hero-kicker]').textContent = slide.kicker;
       const title = hero.querySelector('[data-hero-title]');
       title.replaceChildren(document.createTextNode(slide.line), document.createElement('br'));
