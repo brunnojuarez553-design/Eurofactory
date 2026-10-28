@@ -365,3 +365,82 @@ small{line-height:1.6}
 @media(prefers-reduced-motion:reduce){
  .btn,.branch-card,.branch-action,.gallery-item img,.service-card,.mobile-nav{transition:none!important;animation:none!important}
 }
+
+/* Layout regression fix — 2026-10-28.
+   A sticky header must not combine left:50% with translateX(-50%).
+   That offset hid the official logo and clipped the navigation offscreen.
+   The absolute/fixed home header retains its own centering mechanism. */
+.inner-page .header{
+ position:sticky;
+ left:auto;
+ right:auto;
+ transform:none;
+ width:min(calc(100% - 44px),1480px);
+ margin:12px auto 0;
+ top:12px;
+ z-index:1200;
+}
+.header .header-in{
+ width:min(calc(100% - 48px),1320px);
+ max-width:1320px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:clamp(12px,1.4vw,23px);
+}
+.header .logo{flex:0 0 auto;min-width:0}
+.header .logo .logo-official{display:block;width:190px;height:auto;max-width:100%}
+.header .nav{display:flex;justify-content:center;align-items:center;flex:1 1 auto;min-width:0;gap:clamp(8px,1.05vw,19px)}
+.header .nav a{flex-shrink:0}
+.header .nav-cta{display:flex;align-items:center;flex:0 0 auto;margin-left:auto}
+.inner-page .page-top{
+ padding:clamp(46px,4.2vw,72px) 0 clamp(48px,4.2vw,68px);
+ min-height:0;
+}
+.inner-page .page-top .eyebrow{margin-top:17px!important}
+.inner-page .page-top h1{
+ font-size:clamp(42px,4.7vw,72px);
+ line-height:1.095;
+ letter-spacing:-.065em;
+ max-width:970px;
+ margin:17px 0 18px;
+}
+.inner-page .page-top p{
+ max-width:690px;
+ font-size:clamp(16px,1.35vw,18px);
+ line-height:1.7;
+ margin:0;
+}
+.inner-page .page-top+.section{padding-top:clamp(46px,5vw,75px)}
+.intake-page .tool-section .section-head{margin-bottom:30px}
+.intake-page .wa-float{display:none!important}
+@media(max-width:1180px){
+ .header .nav{display:none!important}
+ .header .nav-cta .btn{display:none!important}
+ .header .mobile-toggle{display:flex!important;align-items:center;justify-content:center}
+ .header .header-in{width:calc(100% - 36px)}
+ .header .mobile-nav{
+  position:absolute;
+  left:0;right:0;
+  top:calc(100% + 9px);
+  width:100%;
+  max-height:calc(100dvh - 110px);
+  margin:0;
+  overflow:auto;
+  overscroll-behavior:contain;
+  border-radius:18px;
+ }
+ .header .mobile-nav.open{display:grid}
+}
+@media(max-width:700px){
+ .inner-page .header{width:calc(100% - 20px);margin-top:8px;top:8px}
+ .header .header-in{height:67px;width:calc(100% - 28px)}
+ .header .logo .logo-official{width:min(154px,43vw)}
+ .header .mobile-nav{top:calc(100% + 7px);max-height:calc(100dvh - 90px);border-radius:16px}
+ .inner-page .page-top{padding:47px 0 50px}
+ .inner-page .page-top .eyebrow{margin-top:16px!important}
+ .inner-page .page-top h1{font-size:clamp(38px,10.1vw,56px);margin:17px 0;line-height:1.12}
+ .inner-page .page-top p{font-size:16px;line-height:1.7}
+ .inner-page .page-top+.section{padding-top:46px}
+ .intake-page .tool-section .section-head{margin-bottom:27px}
+}
