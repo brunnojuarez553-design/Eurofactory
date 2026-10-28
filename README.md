@@ -1,6 +1,6 @@
 # Euro Factory · Web automotriz
 
-Sitio estático multipágina para Maracay y Valencia. Diseño motorsport con portada fotográfica, carrusel manual, tipografía condensada local, servicios con imagen, galería ampliable y solicitud por WhatsApp.
+Sitio estático multipágina para Maracay y Valencia. Diseño premium negro grafito y amarillo ámbar (según carteles reales del taller), con portada fotográfica, carrusel manual, tipografía condensada local, servicios con imagen, galería ampliable y solicitud por WhatsApp.
 
 ## Vercel
 
@@ -34,6 +34,6 @@ Carrusel con flechas y selectores; galería en diálogo con cierre por Escape; m
 
 ## Imágenes y datos
 
-La portada utiliza una imagen de ambientación generada e identificada como tal. Galería con el material original compartido. Procedencia y prompt en docs/image-provenance.md. Guía visual en docs/brand-guidelines.md.
+La portada utiliza una imagen de ambientación generada e identificada como tal. Galería con el material original compartido. Procedencia y prompt en docs/image-provenance.md. Guía visual y paleta de señalética en docs/brand-guidelines.md.
 
 Confirmar con el taller teléfonos, horarios y direcciones antes de la publicación comercial definitiva. El material original contiene capturas: reemplazarlas por fotografías originales de mayor resolución cuando estén disponibles. El monograma EF es provisional. No se incorporan reseñas ni resultados de potencia ficticios.
