@@ -22,7 +22,7 @@ def breadcrumb(*items):
     return '<nav class="crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a> / '+ ' / '.join(E(it) for it in items) + '</nav>'
 
 def brand():
-    return '''<a class="logo" href="/" aria-label="Euro Factory, volver al inicio"><span class="logo-mark" aria-hidden="true">EF</span><span><span class="logo-name">EURO FACTORY</span><span class="logo-sub">EUROPEAN AUTO SPECIALISTS</span></span></a>'''
+    return '''<a class="logo" href="/" aria-label="Euro Factory, volver al inicio"><img class="logo-official" src="/assets/eurofactory-logo.webp" width="540" height="211" alt="Euro Factory · Garage Premium Automotriz" decoding="async"></a>'''
 
 def layout(path,title,description,body,schema=None,ogtype='website'):
     canonical=URL+path
@@ -54,10 +54,10 @@ def pagehead(label,title,description,trail):
     return f'''<section class="page-top"><div class="wrap">{breadcrumb(*trail)}<div class="eyebrow" style="margin-top:45px">{E(label)}</div><h1>{title}</h1><p>{E(description)}</p></div></section>'''
 
 def organization_schema():
-    return {'@context':'https://schema.org','@type':'Organization','@id':URL+'/#organization','name':'Euro Factory','url':URL+'/','sameAs':[INSTAGRAM], 'description':'Taller automotriz especializado en vehículos europeos con sedes en Maracay y Valencia, Venezuela.', 'areaServed':[{'@type':'City','name':'Maracay'},{'@type':'City','name':'Valencia, Carabobo'}]}
+    return {'@context':'https://schema.org','@type':'Organization','@id':URL+'/#organization','name':'Euro Factory','url':URL+'/','logo':URL+'/assets/eurofactory-logo.webp','sameAs':[INSTAGRAM], 'description':'Taller automotriz especializado en vehículos europeos con sedes en Maracay y Valencia, Venezuela.', 'areaServed':[{'@type':'City','name':'Maracay'},{'@type':'City','name':'Valencia, Carabobo'}]}
 
 def local_schema(key):
-    L=LOCATIONS[key];return {'@context':'https://schema.org','@type':'AutoRepair','@id':URL+'/sedes/'+key+'/#localbusiness','name':'Euro Factory '+L['city'],'url':URL+'/sedes/'+key+'/','image':URL+'/assets/bmw-detalle.webp', 'telephone':'+'+L['wa'],'address':{'@type':'PostalAddress','streetAddress':L['address'] if key=='maracay' else 'El Viñedo','addressLocality':L['city'],'addressRegion':L['region'],'addressCountry':'VE'},'areaServed':{'@type':'City','name':L['city']},'sameAs':[INSTAGRAM],'parentOrganization':{'@id':URL+'/#organization'}}
+    L=LOCATIONS[key];return {'@context':'https://schema.org','@type':'AutoRepair','@id':URL+'/sedes/'+key+'/#localbusiness','name':'Euro Factory '+L['city'],'url':URL+'/sedes/'+key+'/','logo':URL+'/assets/eurofactory-logo.webp','image':URL+'/assets/bmw-detalle.webp', 'telephone':'+'+L['wa'],'address':{'@type':'PostalAddress','streetAddress':L['address'] if key=='maracay' else 'El Viñedo','addressLocality':L['city'],'addressRegion':L['region'],'addressCountry':'VE'},'areaServed':{'@type':'City','name':L['city']},'sameAs':[INSTAGRAM],'parentOrganization':{'@id':URL+'/#organization'}}
 
 def service_icon(index):
     paths = ["<path d=\"M4 9V4h5m6 0h5v5m0 6v5h-5m-6 0H4v-5\"/><path d=\"M8 12h2l2-4 2 8 2-4h2\"/>","<path d=\"M12 3C9 8 5 11 5 15a7 7 0 0 0 14 0c0-4-4-7-7-12Z\"/><path d=\"M8 15a4 4 0 0 0 4 4\"/>","<path d=\"M14 6a5 5 0 0 0-6 6l-5 5a2 2 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-4 4-4-4 4-4Z\"/>","<path d=\"M9 3h6M9 21h6M12 3v3l-4 2 8 3-8 3 8 3-4 2v2\"/>","<circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 3v3m9 6h-3m-6 9v-3m-9-6h3\"/>","<rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M9 2v4m6-4v4m7 3h-4m4 6h-4M9 18v4m6-4v4M2 9h4m-4 6h4\"/><path d=\"M10 10h4v4h-4z\"/>","<path d=\"m12 3 9 5v9l-9 5-9-5V8l9-5Zm-9 5 9 5 9-5M12 13v9M7 5.8l9 5\"/>"]

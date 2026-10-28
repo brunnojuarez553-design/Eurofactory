@@ -37,3 +37,6 @@ Carrusel con flechas y selectores; galería en diálogo con cierre por Escape; m
 La portada utiliza una imagen de ambientación generada e identificada como tal. Galería con el material original compartido. Procedencia y prompt en docs/image-provenance.md. Guía visual y paleta de señalética en docs/brand-guidelines.md.
 
 Confirmar con el taller teléfonos, horarios y direcciones antes de la publicación comercial definitiva. El material original contiene capturas: reemplazarlas por fotografías originales de mayor resolución cuando estén disponibles. El monograma EF es provisional. No se incorporan reseñas ni resultados de potencia ficticios.
+
+## Logo oficial
+`public/assets/eurofactory-logo.webp` reproduce el logotipo original plateado facilitado por el cliente, optimizado a WebP y aplicado en navbar y footer, también en `dist/assets/`. Evitar reemplazarlo por el marcador `EF`. La estética general mantiene el ámbar del cartel ECUS Motors y el grafito.

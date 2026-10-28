@@ -151,3 +151,11 @@ a,button,summary,input,select,textarea{-webkit-tap-highlight-color:transparent}:
 .service-card:nth-child(2) .service-rule,.service-card:nth-child(3) .service-rule,.service-card:nth-child(4) .service-rule{background:var(--brand-amber)}
 .mobile-nav a:last-child,.evidence-index,.hero-arrow:hover,.wa-float{color:#191409}
 .process-grid article>span{color:#93600a}
+
+/* Logotipo original oficial de EURO FACTORY: no sustituir por monograma EF. */
+.logo{display:inline-flex;align-items:center;gap:0;flex:none;isolation:isolate;line-height:0}
+.logo .logo-official{display:block;width:192px;height:auto;max-width:100%;object-fit:contain;mix-blend-mode:screen}
+.header-in{gap:18px}
+.footer .logo .logo-official{width:min(285px,100%)}
+@media(max-width:1200px){.header .logo .logo-official{width:166px}.header-in{gap:12px}}
+@media(max-width:600px){.header .logo .logo-official{width:154px}.footer .logo .logo-official{width:min(245px,100%)}}

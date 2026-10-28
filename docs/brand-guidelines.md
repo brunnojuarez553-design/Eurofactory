@@ -17,3 +17,6 @@ La base es grafito, no un amarillo de advertencia a pantalla completa. Usar ámb
 Conservar datos reales, rutas SEO y perfiles de sedes. El selector prepara la visita y no simula potencia. Los bloques de confianza explican el proceso; no usan testimonios ficticios. Carrusel manual y galería ampliable por teclado. El formulario solo prepara WhatsApp.
 
 El archivo performance-hero.webp es una imagen de ambientación generada; las fotos de galería proceden del material original del taller.
+
+## Logotipo oficial
+Usar el archivo original comprimido y recortado `public/assets/eurofactory-logo.webp` (540×211 px), con acabado plateado y el lema «Garage Premium Automotriz». No usar el monograma provisional EF como marca. Para barra de navegación y pie usar `mix-blend-mode: screen` sobre grafito oscuro, conservando contraste y proporciones. El amarillo ámbar corresponde a botones y elementos de interfaz, no se aplica al logotipo original.
