@@ -91,3 +91,6 @@ La hoja `mobile-studio.css?v=1` se carga **al final** después de todos los esti
 
 ## Corrección del footer en celulares
 `mobile-studio.css?v=2` define áreas de CSS Grid explícitas para el pie de página: identidad (ancho total), Explorar e Información en dos tarjetas paralelas y Sedes en dos tarjetas de contacto. Reemplaza los conflictos de `grid-column` de reglas a 480/700px y reduce el espacio vertical. El enlace flotante de evaluación se oculta cuando cualquier parte del footer entra en pantalla gracias a la observación de `.footer-luxe` en `site.js?v=11`, recuperándose al salir del footer. Se conservan logo, enlaces, SVG y datos reales.
+
+## Asistente conversacional Groq (2026-10)
+Botón animado con logo y viñeta a los 45 segundos; chat de consultas, dos sedes y solicitud de cita por WhatsApp con datos completos. La clave debe configurarse como GROQ_API_KEY en Vercel (variable privada) y se debe redeplegar. Guía: docs/assistant.md. No existe agenda automática ni confirmación de turnos.
