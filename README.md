@@ -74,3 +74,6 @@ La página `/servicios/` utiliza una portada exclusiva con la imagen compartida 
 
 ## Footer premium (2026-10)
 Pie de página rediseñado mediante `footer()` en `scripts/build.py` y hoja `footer-luxe.css?v=1`, con logotipo oficial, redes sociales y mensajería con iconos SVG de Instagram y WhatsApp, enlaces propios, teléfonos por sede, horario sujeto a confirmación, notas legales y enlace accesible para volver arriba. SVG de redes desde Simple Icons (simbolos añadidos a `icons.svg`). Solo se incorporaron Instagram y WhatsApp reales; sin inventar redes adicionales. Su estética conserva grafito, plata y detalles ámbar, adaptándose a escritorio, tablet y móvil.
+
+## Banner fotográfico de Nosotros (2026-10)
+La portada de `/nosotros/` usa una fotografía BMW facilitada por el cliente desde Cloudinary (https://res.cloudinary.com/pcuis0hp/image/upload/v1793200966/IMG_2829.jpg), con degradados grafito para preservar legibilidad, tamaños responsive y precarga. La clase específica `about-banner` se añade en la llamada a `pagehead()` en `scripts/build.py`; el estilo dedicado `about-banner.css?v=1` solo se sirve en `/nosotros/`. Otras portadas no se modifican.
