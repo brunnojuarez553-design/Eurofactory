@@ -150,7 +150,7 @@ def locations_section():
 </article>''')
     return f'''<section class="section branches-section" id="sedes" aria-labelledby="branches-title"><div class="wrap">
 <div class="section-head branches-head"><div><div class="eyebrow">05 / DÓNDE ESTAMOS</div><h2 class="title" id="branches-title">Dos sedes.<br><span class="serif">Un estándar.</span></h2></div>
-<p class="lead">Elegí tu sede. Encontrá su dirección, contacto directo y mapa, y prepará tu evaluación en pocos pasos.</p></div>
+<p class="lead">Elige tu sede. Encuentra su dirección, contacto directo y mapa, y prepara tu evaluación en pocos pasos.</p></div>
 <div class="branch-grid">{''.join(cards)}</div>
 </div></section>'''
 
