@@ -140,7 +140,7 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
 <section class="cta-footer"><div class="wrap"><span class="eyebrow">07 / DA EL SIGUIENTE PASO</span><h2>Tu vehículo,<br><span class="outline-text">en buenas manos.</span></h2><p>Cuéntanos qué necesitas. El equipo de tu sede te orienta.</p>{btn('Agenda tu evaluación','/evaluacion/','btn-accent')+btn('Elegir sede','/sedes/','btn-outline')}</div></section>
 {footer()}
 <dialog class="gallery-dialog" data-gallery-dialog aria-label="Imagen de la galería"><button type="button" data-gallery-close aria-label="Cerrar imagen">×</button><img data-gallery-full alt=""><p data-gallery-caption></p></dialog><a class="wa-float" href="/evaluacion/" aria-label="Iniciar solicitud de servicio"><span aria-hidden="true">↗</span> Solicitar evaluación</a>
-<script src="/assets/site.js?v=9" defer></script></body></html>'''
+<script src="/assets/site.js?v=10" defer></script></body></html>'''
     dest=DEST/path.lstrip('/')/'index.html' if path!='/' else DEST/'index.html'
     dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(render_icons(html_text),encoding='utf-8')
     ROUTES.append(path)

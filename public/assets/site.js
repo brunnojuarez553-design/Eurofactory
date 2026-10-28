@@ -107,6 +107,22 @@
     hero.querySelector('[data-hero-prev]').addEventListener('click', () => showSlide(active-1));
     hero.querySelector('[data-hero-next]').addEventListener('click', () => showSlide(active+1));
     hero.querySelectorAll('[data-hero-slide]').forEach(button => button.addEventListener('click', () => showSlide(Number(button.dataset.heroSlide))));
+    // Mobile: horizontal swipes change slides, vertical gestures keep normal page scroll.
+    let touchStart = null;
+    hero.addEventListener('touchstart', event => {
+      if (event.touches.length !== 1 || event.target.closest('a, button, input, select, textarea')) {
+        touchStart = null; return;
+      }
+      touchStart = {x:event.touches[0].clientX, y:event.touches[0].clientY};
+    }, {passive:true});
+    hero.addEventListener('touchend', event => {
+      if (!touchStart || !event.changedTouches.length) return;
+      const dx = event.changedTouches[0].clientX - touchStart.x;
+      const dy = event.changedTouches[0].clientY - touchStart.y;
+      touchStart = null;
+      if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.4) showSlide(active + (dx < 0 ? 1 : -1));
+    }, {passive:true});
+    hero.addEventListener('touchcancel', () => { touchStart = null; }, {passive:true});
   }
 
   const dialog = document.querySelector('[data-gallery-dialog]');
