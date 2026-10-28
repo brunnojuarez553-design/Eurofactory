@@ -2,7 +2,7 @@
   const toggle = document.querySelector('[data-menu-toggle]');
   const mobile = document.querySelector('[data-mobile-nav]');
   if (toggle && mobile) {
-    const narrow = window.matchMedia("(max-width: 1100px)");
+    const narrow = window.matchMedia("(max-width: 1180px)");
     function closeMenu(restoreFocus = false) {
       mobile.classList.remove("open"); document.body.classList.remove("menu-open");
       toggle.setAttribute("aria-expanded", "false"); toggle.setAttribute("aria-label", "Abrir menú"); toggle.innerHTML = "<svg class=\"ui-icon\" aria-hidden=\"true\" focusable=\"false\"><use href=\"/assets/icons.svg#menu\"></use></svg>";
