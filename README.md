@@ -77,3 +77,11 @@ Pie de página rediseñado mediante `footer()` en `scripts/build.py` y hoja `foo
 
 ## Banner fotográfico de Nosotros (2026-10)
 La portada de `/nosotros/` usa una fotografía BMW facilitada por el cliente desde Cloudinary (https://res.cloudinary.com/pcuis0hp/image/upload/v1793200966/IMG_2829.jpg), con degradados grafito para preservar legibilidad, tamaños responsive y precarga. La clase específica `about-banner` se añade en la llamada a `pagehead()` en `scripts/build.py`; el estilo dedicado `about-banner.css?v=1` solo se sirve en `/nosotros/`. Otras portadas no se modifican.
+
+## Fotografía de tarjetas de servicios (octubre 2026)
+El generador `scripts/build.py` utiliza `SERVICE_CARD_IMAGE_OVERRIDES` para las tarjetas de **Frenos**, **Suspensión y dirección**, **Mantenimiento preventivo** y **Repuestos y lubricantes** en Inicio y Servicios.
+- Frenos y Suspensión: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200963/IMG_2834.jpg
+- Mantenimiento preventivo (tarjeta, última foto indicada por el cliente): https://res.cloudinary.com/pcuis0hp/image/upload/v1793200965/IMG_2831.jpg
+- Repuestos y lubricantes: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2840.jpg
+- Mantenimiento preventivo (fotografía complementaria en la página de detalle): https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2836.jpg
+Las imágenes de servicios no solicitados permanecen sin cambios. CSS fotográfico de detalle: `maintenance-detail.css`.
