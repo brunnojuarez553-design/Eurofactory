@@ -85,3 +85,6 @@ El generador `scripts/build.py` utiliza `SERVICE_CARD_IMAGE_OVERRIDES` para las 
 - Repuestos y lubricantes: https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2840.jpg
 - Mantenimiento preventivo (fotografía complementaria en la página de detalle): https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2836.jpg
 Las imágenes de servicios no solicitados permanecen sin cambios. CSS fotográfico de detalle: `maintenance-detail.css`.
+
+## Mobile Studio — rediseño mobile-first
+La hoja `mobile-studio.css?v=1` se carga **al final** después de todos los estilos, solo modifica presentación en pantallas <=900px y deja intacto escritorio. Servicios, pasos y sedes son carruseles táctiles nativos con scroll snap horizontal, sin librería JS; se mantienen sus enlaces y contenido y se añade `tabindex=0` + descripción accesible para navegación con teclado. Galería en patrón bento de dos columnas, formulario compacto y accesible, sedes con mapas, iconos SVG, CTA con safe-area y footer organizado en dos columnas. Respetar `prefers-reduced-motion` y evitar transformaciones en hover táctil. Los cambios también están integrados en `scripts/build.py` para persistir en reconstrucciones de Vercel.
