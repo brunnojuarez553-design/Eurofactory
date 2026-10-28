@@ -1,0 +1,47 @@
+/* Euro Factory: banner fotográfico exclusivo de /servicios/. Mantener la fotografía aportada por el cliente. */
+.page-top.services-banner{
+ position:relative;
+ isolation:isolate;
+ display:flex;
+ align-items:center;
+ min-height:clamp(420px,35vw,550px);
+ border-bottom:1px solid rgba(255,255,255,.13);
+ background:
+  linear-gradient(90deg,rgba(7,9,13,.94) 0%,rgba(7,9,13,.82) 34%,rgba(7,9,13,.43) 68%,rgba(7,9,13,.30) 100%),
+  linear-gradient(0deg,rgba(7,9,13,.76) 0%,rgba(7,9,13,.05) 45%,rgba(7,9,13,.28) 100%),
+  url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200964/IMG_2838.jpg") center 52% / cover no-repeat;
+}
+.page-top.services-banner .wrap{position:relative;z-index:1;width:min(calc(100% - 72px),var(--max))}
+.page-top.services-banner h1{
+ max-width:840px;
+ color:#fff;
+ text-shadow:0 5px 38px rgba(0,0,0,.3);
+}
+.page-top.services-banner h1 .serif{color:#f2b32e}
+.page-top.services-banner p{max-width:610px;color:#e6e5e6;text-shadow:0 2px 16px rgba(0,0,0,.2)}
+.page-top.services-banner .crumb{color:#d2d3d5}
+.page-top.services-banner .eyebrow{color:#ffd079}
+@media(max-width:900px){
+ .page-top.services-banner{
+  min-height:450px;
+  background-position:center,center,61% center;
+ }
+}
+@media(max-width:700px){
+ .page-top.services-banner{
+  min-height:445px;
+  padding:70px 0 74px;
+  background-image:
+   linear-gradient(90deg,rgba(7,9,13,.94),rgba(7,9,13,.64)),
+   linear-gradient(0deg,rgba(7,9,13,.62),transparent 70%),
+   url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200964/IMG_2838.jpg");
+  background-size:cover;
+  background-position:center,center,60% center;
+ }
+ .page-top.services-banner .wrap{width:calc(100% - 40px)}
+ .page-top.services-banner h1{font-size:clamp(43px,10vw,62px);line-height:1.1}
+ .page-top.services-banner p{font-size:16px;line-height:1.7}
+}
+@media(max-width:400px){
+ .page-top.services-banner .wrap{width:calc(100% - 30px)}
+}
