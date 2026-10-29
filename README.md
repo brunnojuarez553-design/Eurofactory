@@ -100,3 +100,6 @@ El asistente usa por defecto el modelo activo openai/gpt-oss-120b con JSON Schem
 
 ## Fondo fotográfico de preguntas frecuentes
 La sección de FAQs en Inicio y en `/preguntas-frecuentes/` presenta la imagen Cloudinary del cliente (`https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2836.jpg`) superpuesta con un doble degradado oscuro para garantizar legibilidad. El estilo está aislado en `faq-photo.css?v=1`, adaptado a móvil y no altera otros banners. El generador `scripts/build.py` define la clase `faq-photo-section` y carga el CSS solo en estas dos páginas.
+
+## CTA «Conoce Euro Factory» — Inicio
+Se reemplazó el enlace plano al final de Nuestra esencia por una tarjeta CTA accesible y destacada con flecha SVG inline, borde ámbar, brillo sutil, flecha en movimiento, animación de halo y microinteracciones hover/focus. Diseño adaptable a móvil y escritorio, y `prefers-reduced-motion`. Solo en Inicio; la versión ampliada de Nosotros conserva su enlace a Servicios. Fuente: `evidence_section()` en `scripts/build.py`. Estilos aislados en `evidence-discover.css?v=1`.
