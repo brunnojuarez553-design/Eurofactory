@@ -1,0 +1,47 @@
+/* Scroll-motion system / Euro Factory.
+   translate + scale are independent transform longhands: preserve existing
+   hover, gallery, marquee and navigation transform animations. */
+@supports (translate: 1px 0) {
+  html.scroll-reveal-ready [data-reveal]{
+    transition-property: opacity,translate,scale;
+    transition-duration: .75s,.88s,.88s;
+    transition-delay: var(--reveal-delay,0ms);
+    transition-timing-function: cubic-bezier(.2,.72,.18,1), cubic-bezier(.18,1,.28,1),cubic-bezier(.18,1,.28,1);
+  }
+  html.scroll-reveal-ready [data-reveal]:not(.is-revealed){
+    opacity:.035;
+    will-change:opacity,translate,scale;
+  }
+  html.scroll-reveal-ready [data-reveal="up"]:not(.is-revealed){translate:0 34px}
+  html.scroll-reveal-ready [data-reveal="down"]:not(.is-revealed){translate:0 -27px}
+  html.scroll-reveal-ready [data-reveal="left"]:not(.is-revealed){translate:-40px 0}
+  html.scroll-reveal-ready [data-reveal="right"]:not(.is-revealed){translate:40px 0}
+  html.scroll-reveal-ready [data-reveal="in"]:not(.is-revealed){scale:.955}
+  html.scroll-reveal-ready [data-reveal="out"]:not(.is-revealed){scale:1.035}
+  html.scroll-reveal-ready [data-reveal].is-revealed{
+    opacity:1;
+    translate:0 0;
+    scale:1;
+  }
+  @media(max-width:700px){
+    html.scroll-reveal-ready [data-reveal]{
+      transition-duration:.55s,.65s,.65s;
+      transition-delay:var(--reveal-delay,0ms);
+    }
+    html.scroll-reveal-ready [data-reveal="up"]:not(.is-revealed){translate:0 20px}
+    html.scroll-reveal-ready [data-reveal="down"]:not(.is-revealed){translate:0 -17px}
+    html.scroll-reveal-ready [data-reveal="left"]:not(.is-revealed){translate:-21px 0}
+    html.scroll-reveal-ready [data-reveal="right"]:not(.is-revealed){translate:21px 0}
+    html.scroll-reveal-ready [data-reveal="in"]:not(.is-revealed){scale:.97}
+    html.scroll-reveal-ready [data-reveal="out"]:not(.is-revealed){scale:1.025}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html.scroll-reveal-ready [data-reveal]{
+    transition:none!important;
+    opacity:1!important;
+    translate:none!important;
+    scale:none!important;
+    will-change:auto!important;
+  }
+}

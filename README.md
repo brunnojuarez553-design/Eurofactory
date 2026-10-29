@@ -109,3 +109,6 @@ En Inicio, la franja `01 / EMPIEZA AQUÍ` usa la foto `https://res.cloudinary.co
 
 ## Transiciones sin bordes entre secciones (móvil y escritorio)
 Se eliminan los bordes horizontales y brillos de separación en el carrusel de marcas, la franja `01 / EMPIEZA AQUÍ` y la galería. `section-photo-overlays.css?v=2` aplica `border:0` y un degradado suave en los extremos de los fondos fotográficos, sin alterar imágenes, contenidos ni formularios. La corrección se carga en Inicio y Galería; el generador conserva la versión del archivo.
+
+## Motion design: animaciones al scroll (2026-10)
+El sistema `scroll-reveal.js` + `scroll-reveal.css` aplica animaciones compositor-only (opacity, translate y scale) por elemento, alternando entradas desde arriba, abajo, izquierda, derecha y escalado de dentro/afuera. Los títulos, fotografías, bloques editoriales, tarjetas de servicios, sedes, galería, FAQs, pasos y footer aparecen progresivamente una sola vez con `IntersectionObserver`. No se alteran las secciones hero, navbar, marquee, formularios interactivos, asistente virtual ni carruseles. Respeta `prefers-reduced-motion`, degradación elegante sin JS, carga en las 21 páginas mediante `scripts/build.py` y foco por teclado.
