@@ -322,6 +322,10 @@ for g in GUIDES:
     article+='<article class="section"><div class="wrap editorial"><div class="eyebrow">INFORMACIÓN GENERAL · '+g['date']+'</div>'+''.join('<p>'+E(par)+'</p>' for par in g['body'])+'<div class="note-banner">Esta nota es informativa. Ante una falla, el servicio adecuado depende de una evaluación técnica individual.</div><div style="margin-top:38px">'+btn('Solicitar evaluación','/evaluacion/')+'</div></div></article>'
     sch={'@context':'https://schema.org','@type':'BlogPosting','headline':g['title'],'datePublished':g['date'],'dateModified':g['date'],'author':{'@type':'Organization','name':'Euro Factory'},'publisher':{'@id':URL+'/#organization'},'mainEntityOfPage':URL+'/guias/'+g['slug']+'/'}
     layout('/guias/'+g['slug']+'/',g['title']+' | Euro Factory',g['excerpt'],article,sch,ogtype='article')
+# Instagram landing has its own compact layout.
+from bio import build_bio
+build_bio(DEST, URL, BRAND, INSTAGRAM, LOCATIONS)
+
 # Assets and crawlability.
 shutil.copytree(ROOT/'public'/'assets',DEST/'assets',dirs_exist_ok=True)
 (DEST/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{E(URL+p)}</loc></url>\n' for p in ROUTES)+'</urlset>\n',encoding='utf-8')
