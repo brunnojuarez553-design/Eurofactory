@@ -54,3 +54,48 @@
 @media(max-width:400px) {
  .page-top.about-banner .wrap { width:calc(100% - 30px) }
 }
+
+
+/* Quiénes somos — narrativa ampliada con ritmo editorial y lectura mobile. */
+.evidence--expanded .evidence-story{
+ display:grid;
+ gap:18px;
+ max-width:620px;
+ margin:22px 0 0;
+}
+.evidence--expanded .evidence-story p{
+ margin:0;
+ color:#bfc2c7;
+ font-size:clamp(14px,1.2vw,16px);
+ font-weight:400;
+ line-height:1.84;
+ letter-spacing:0;
+}
+.evidence--expanded .evidence-story p.lead{
+ font-size:clamp(16px,1.4vw,18px);
+ line-height:1.75;
+ color:#f2f0ec;
+ font-weight:450;
+}
+.evidence--expanded .evidence-layout{
+ grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
+ align-items:center;
+ gap:clamp(34px,4.5vw,72px);
+}
+.evidence--expanded .evidence-photo{
+ height:clamp(560px,52vw,740px);
+ border-radius:27px;
+}
+.evidence--expanded .evidence-notes{margin:27px 0 24px}
+@media(max-width:900px){
+ .evidence--expanded .evidence-layout{grid-template-columns:1fr;gap:30px}
+ .evidence--expanded .evidence-story{max-width:680px;gap:15px;margin-top:19px}
+ .evidence--expanded .evidence-photo{height:clamp(300px,48vw,460px)}
+}
+@media(max-width:700px){
+ .evidence--expanded .evidence-story{gap:15px;margin-top:17px}
+ .evidence--expanded .evidence-story p{font-size:14px;line-height:1.73}
+ .evidence--expanded .evidence-story p.lead{font-size:15px;line-height:1.72}
+ .evidence--expanded .evidence-notes{margin:21px 0 19px}
+ .evidence--expanded .evidence-photo{height:clamp(235px,72vw,350px);border-radius:20px}
+}
