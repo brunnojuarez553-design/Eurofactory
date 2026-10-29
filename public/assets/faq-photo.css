@@ -1,0 +1,65 @@
+/* Euro Factory · Fotografía del taller como fondo de FAQs.
+   Aplicada solo a la sección correspondiente, con doble overlay grafito. */
+.section.faq-photo-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  color:#f7f7f6;
+  background-color:#0a0d11;
+  background-image:
+    linear-gradient(90deg,rgba(7,9,13,.92) 0%,rgba(7,9,13,.79) 47%,rgba(7,9,13,.58) 100%),
+    linear-gradient(0deg,rgba(7,9,13,.91) 0%,rgba(7,9,13,.22) 40%,rgba(7,9,13,.75) 100%),
+    url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2836.jpg");
+  background-position:center,center,center 51%;
+  background-size:cover;
+  background-repeat:no-repeat;
+  border-block:1px solid rgba(255,255,255,.1);
+}
+.section.faq-photo-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 95% 5%,rgba(242,179,46,.12),transparent 45%);
+}
+.section.faq-photo-section>.wrap{position:relative;z-index:1}
+.section.faq-photo-section .section-head .title{color:#faf9f5}
+.section.faq-photo-section .section-head .serif{color:#f2b32e}
+.section.faq-photo-section .eyebrow{color:#f4bf55}
+.section.faq-photo-section .line-link{color:#f7f6f2}
+.section.faq-photo-section .line-link:hover{color:#ffd06b}
+.section.faq-photo-section .faq{position:relative}
+.section.faq-photo-section .faq details,
+.section.faq-photo-section .faq details:last-child{
+  background:rgba(17,20,26,.83);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:19px;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 9px 30px rgba(0,0,0,.12);
+}
+.section.faq-photo-section .faq details[open]{
+  background:rgba(15,18,23,.93);
+  border-color:rgba(242,179,46,.55);
+}
+.section.faq-photo-section .faq summary{color:#f5f4f2}
+.section.faq-photo-section .faq details p{color:#d7d9de}
+.section.faq-photo-section .faq summary::after{color:#f2b32e}
+@media(max-width:700px){
+ .section.faq-photo-section{
+   background-image:
+     linear-gradient(90deg,rgba(7,9,13,.92),rgba(7,9,13,.77)),
+     linear-gradient(0deg,rgba(7,9,13,.88),rgba(7,9,13,.25) 45%,rgba(7,9,13,.7)),
+     url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2836.jpg");
+   background-position:center,center,58% center;
+ }
+ .section.faq-photo-section .faq details,
+ .section.faq-photo-section .faq details:last-child{border-radius:16px;background:rgba(17,20,25,.89)}
+ .section.faq-photo-section .faq summary{font-size:14px;line-height:1.5}
+ .section.faq-photo-section .faq details p{font-size:13px;line-height:1.7}
+}
+@media(prefers-reduced-transparency:reduce){
+ .section.faq-photo-section .faq details{backdrop-filter:none;-webkit-backdrop-filter:none;background:#171a21}
+}

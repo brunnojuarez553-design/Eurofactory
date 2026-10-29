@@ -97,3 +97,6 @@ Botón animado con logo y viñeta a los 45 segundos; chat de consultas, dos sede
 
 ## Groq y bienvenida (actualización 2026-10)
 El asistente usa por defecto el modelo activo openai/gpt-oss-120b con JSON Schema estricto; sustituye automáticamente GROQ_MODEL si señala un modelo antiguo/otro no admitido. La bienvenida se muestra una sola vez en la interfaz y el backend evita saludos redundantes. Ver docs/assistant.md.
+
+## Fondo fotográfico de preguntas frecuentes
+La sección de FAQs en Inicio y en `/preguntas-frecuentes/` presenta la imagen Cloudinary del cliente (`https://res.cloudinary.com/pcuis0hp/image/upload/v1793200960/IMG_2836.jpg`) superpuesta con un doble degradado oscuro para garantizar legibilidad. El estilo está aislado en `faq-photo.css?v=1`, adaptado a móvil y no altera otros banners. El generador `scripts/build.py` define la clase `faq-photo-section` y carga el CSS solo en estas dos páginas.
