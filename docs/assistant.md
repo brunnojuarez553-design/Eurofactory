@@ -32,3 +32,6 @@
 - Vista móvil de 375px/430px, teclado, Escape, sugerencia a los 45 segundos y animación reducida.
 ## Saludo único
 El cliente ve una bienvenida en el chat, antes de escribir. El servidor añade ese turno al contexto, evita nuevos saludos y responde de forma directa si la consulta contiene solamente «hola». Se evita una segunda bienvenida sin impedir preguntas sobre servicios y solicitudes de turno.
+
+## Pruebas de regresión
+Ejecutar `node --test tests/assistant.test.cjs` en Node 20+ (sin clave real); valida migración desde Llama retirado, estructura JSON de Groq, saludo único, destino WhatsApp, consulta general y error de credenciales.

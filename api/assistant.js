@@ -189,7 +189,7 @@ module.exports = async function handler(req, res) {
     'wantsAppointment es true cuando el usuario expresa intención de pedir cita, turno, revisión, cotización o evaluación. No fuerces intención por preguntas generales. No inventes datos nunca.',
   ].join('\n\n');
   // Un "hola" breve no debe generar otra bienvenida ni consumir una consulta a Groq.
-  if (/^[¡!¿?\\s]*(?:hola|buenas|buenos días|buenas tardes|buenas noches)[!?.\\s]*$/i.test(input)) {
+  if (/^[¡!¿?\s]*(?:hola|buenas|buenos días|buenas tardes|buenas noches)[!?.\s]*$/i.test(input)) {
     return respond(res, 200, {
       reply: 'Contame qué necesitás: puedo ayudarte con servicios, horarios, ubicaciones o una cita.',
       lead: leadBefore, wantsAppointment: wantedBefore, ready: false, whatsapp: null,
