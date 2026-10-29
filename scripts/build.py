@@ -129,7 +129,7 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
     maintenance_photo_css='<link rel="stylesheet" href="/assets/maintenance-detail.css?v=1">' if path=='/servicios/mantenimiento-preventivo/' else ''
     faq_photo_css='<link rel="stylesheet" href="/assets/faq-photo.css?v=1">' if path in ('/', '/preguntas-frecuentes/') else ''
     evidence_discover_css='<link rel="stylesheet" href="/assets/evidence-discover.css?v=1">' if path=='/' else ''
-    section_photos_css='<link rel="stylesheet" href="/assets/section-photo-overlays.css?v=1">' if path in ('/', '/galeria/') else ''
+    section_photos_css='<link rel="stylesheet" href="/assets/section-photo-overlays.css?v=2">' if path in ('/', '/galeria/') else ''
     html_text=f'''<!doctype html><html lang="es-VE"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090a0b">
 <title>{E(title)}</title><meta name="description" content="{E(description)}"><meta name="author" content="Euro Factory">
