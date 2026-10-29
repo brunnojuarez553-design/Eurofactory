@@ -94,3 +94,6 @@ La hoja `mobile-studio.css?v=1` se carga **al final** después de todos los esti
 
 ## Asistente conversacional Groq (2026-10)
 Botón animado con logo y viñeta a los 45 segundos; chat de consultas, dos sedes y solicitud de cita por WhatsApp con datos completos. La clave debe configurarse como GROQ_API_KEY en Vercel (variable privada) y se debe redeplegar. Guía: docs/assistant.md. No existe agenda automática ni confirmación de turnos.
+
+## Groq y bienvenida (actualización 2026-10)
+El asistente usa por defecto el modelo activo openai/gpt-oss-120b con JSON Schema estricto; sustituye automáticamente GROQ_MODEL si señala un modelo antiguo/otro no admitido. La bienvenida se muestra una sola vez en la interfaz y el backend evita saludos redundantes. Ver docs/assistant.md.

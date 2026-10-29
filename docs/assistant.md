@@ -3,7 +3,7 @@
 ## Activación obligatoria
 1. Abrir el proyecto Eurofactory en Vercel > Settings > Environment Variables.
 2. Crear GROQ_API_KEY como variable de servidor, asignada a Production (y Preview para pruebas), con la clave de Groq Console.
-3. Opcional: GROQ_MODEL=llama-3.3-70b-versatile, modelo por defecto. No utilizar prefijos públicos y no subir claves a GitHub.
+3. Modelo por defecto (Groq producción 2026): openai/gpt-oss-120b con Structured Outputs estrictos. Opcional GROQ_MODEL=openai/gpt-oss-20b o qwen/qwen3.8-27b. Si GROQ_MODEL apunta al antiguo llama-3.3-70b-versatile (retirado en Free/Developer el 16/08/2026) el servidor usa automáticamente openai/gpt-oss-120b. No utilizar prefijos públicos ni subir claves a GitHub.
 4. Hacer Redeploy para que la función de servidor reciba la variable.
 5. Probar conversaciones en producción. Un deploy exitoso no confirma por sí solo que la clave esté configurada ni que Groq responda.
 
@@ -30,3 +30,5 @@
 - Preguntar por detalles, corregir datos y comprobar botón de WhatsApp con nombre, vehículo, problema y fecha estimada.
 - Fallos de Groq y falta de clave: mensaje comprensible y contactos de ambas sedes.
 - Vista móvil de 375px/430px, teclado, Escape, sugerencia a los 45 segundos y animación reducida.
+## Saludo único
+El cliente ve una bienvenida en el chat, antes de escribir. El servidor añade ese turno al contexto, evita nuevos saludos y responde de forma directa si la consulta contiene solamente «hola». Se evita una segunda bienvenida sin impedir preguntas sobre servicios y solicitudes de turno.

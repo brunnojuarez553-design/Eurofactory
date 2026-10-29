@@ -5,6 +5,58 @@
  */
 'use strict';
 
+
+const DEFAULT_MODEL = 'openai/gpt-oss-120b';
+// Modelos de producción que Groq documenta con Structured Outputs estricto.
+const SUPPORTED_MODELS = new Set([
+  'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.8-27b',
+]);
+const OUTPUT_SCHEMA = {
+  name: 'euro_factory_assistant',
+  strict: true,
+  schema: {
+    type: 'object',
+    properties: {
+      reply: { type: 'string' },
+      updates: {
+        type: 'object',
+        properties: {
+          branch: { type: ['string', 'null'], enum: ['maracay', 'valencia', null] },
+          name: { type: ['string', 'null'] },
+          vehicle: { type: ['string', 'null'] },
+          service: { type: ['string', 'null'] },
+          date: { type: ['string', 'null'] },
+          phone: { type: ['string', 'null'] },
+        },
+        required: ['branch', 'name', 'vehicle', 'service', 'date', 'phone'],
+        additionalProperties: false,
+      },
+      wantsAppointment: { type: 'boolean' },
+    },
+    required: ['reply', 'updates', 'wantsAppointment'],
+    additionalProperties: false,
+  },
+};
+const WELCOME = '¡Hola! Soy el asistente virtual de Euro Factory. Te puedo orientar con nuestros servicios o ayudarte a solicitar una cita en Maracay o Valencia. ¿En qué te ayudo?';
+function currentModel() {
+  const requested = (process.env.GROQ_MODEL || '').trim();
+  // También migra automáticamente configuraciones legadas de Llama 3.3 retiradas de Free/Developer.
+  return SUPPORTED_MODELS.has(requested) ? requested : DEFAULT_MODEL;
+}
+function avoidDuplicateGreeting(answer) {
+  let reply = clean(answer, 900);
+  // El saludo de la cabecera ya se mostró. Evitar nuevas presentaciones sin eliminar el contenido útil.
+  reply = reply
+    .replace(/^[¡!¿?\s,.:;-]*(?:hola|buenas(?: tardes| noches)?|buenos días)[!,.¿?\s;-]*/i, '')
+    .replace(/^(?:bienvenid[oa]s? (?:a |de )?euro factory[!,.\s;-]*)/i, '')
+    .replace(/^(?:soy (?:el |tu )?asistente (?:virtual |de ia )?(?:de euro factory)?[!,.\s;-]*)/i, '')
+    .trim();
+  if (!reply || /^¿?en qué (?:te|le) (?:puedo )?ayud[ao]/i.test(reply)) {
+    return 'Contame qué necesitás: puedo orientarte sobre los servicios, las dos sedes o ayudarte a preparar una cita.';
+  }
+  return reply[0].toLocaleUpperCase('es-VE') + reply.slice(1);
+}
+
 const NUMBERS = Object.freeze({ maracay: '584243103283', valencia: '584144630453' });
 const FIELDS = Object.freeze({
   branch: 24, name: 100, vehicle: 150, service: 240, date: 110, phone: 45,
@@ -122,6 +174,7 @@ module.exports = async function handler(req, res) {
   const system = [
     'Eres el asistente virtual de Euro Factory, taller automotriz premium venezolano.',
     'Hablas español natural de Venezuela, amable, humano, profesional y sin frases robóticas. No afirmes ser una persona. No uses emojis ni Markdown ni listas extensas. Respuestas breves (1 a 3 oraciones, salvo explicación solicitada).',
+    'MUY IMPORTANTE: el cliente YA VIO el saludo inicial: "' + WELCOME + '". Tu turno es una continuación, NO un primer contacto. Nunca vuelvas a decir Hola, Buenas, Bienvenido a Euro Factory, ni Soy el asistente virtual. Si el usuario escribe solo hola, contestá "Contame, ¿qué necesitás?" sin otra presentación. Empezá directamente con la respuesta a su pregunta.',
     'Respondé primero a las preguntas reales del cliente sobre servicios, ubicaciones, horarios y cómo funciona una cita. No fuerces un formulario ni pidas todos los datos de golpe.',
     'Si el cliente quiere agendar o evaluar un servicio, recopilá con naturalidad y de a una pregunta por respuesta: sede Maracay/Valencia, nombre, vehículo con marca/modelo y año si lo sabe, problema o servicio, fecha estimada. El teléfono es opcional.',
     'Si el usuario ya dio algunos datos en el diálogo, NO los vuelvas a preguntar. Si pregunta algo, respóndelo antes de retomar suavemente el dato faltante.',
@@ -131,31 +184,47 @@ module.exports = async function handler(req, res) {
     'INFORMACIÓN VERIFICADA DEL TALLER:\n' + knowledge,
     'DATOS YA RECOPILADOS (no necesariamente públicos): ' + JSON.stringify(leadBefore),
     'INTERÉS EN CITA HASTA AHORA: ' + wantedBefore,
-    'Produce ÚNICAMENTE un objeto JSON sin código ni comentarios: {"reply":"mensaje cálido para el cliente","updates":{"branch":null,"name":null,"vehicle":null,"service":null,"date":null,"phone":null},"wantsAppointment":false}.',
+    'Produce únicamente el objeto JSON previsto por el esquema del servidor: reply, updates y wantsAppointment; nunca agregues texto fuera de JSON. En updates usá null para campos no mencionados.',
     'updates contiene SOLO datos nuevos o correcciones expresamente aportados por el usuario en esta conversación; pon null para lo que no haya sido mencionado o modificado recientemente. branch solo puede ser maracay, valencia o null.',
     'wantsAppointment es true cuando el usuario expresa intención de pedir cita, turno, revisión, cotización o evaluación. No fuerces intención por preguntas generales. No inventes datos nunca.',
   ].join('\n\n');
+  // Un "hola" breve no debe generar otra bienvenida ni consumir una consulta a Groq.
+  if (/^[¡!¿?\\s]*(?:hola|buenas|buenos días|buenas tardes|buenas noches)[!?.\\s]*$/i.test(input)) {
+    return respond(res, 200, {
+      reply: 'Contame qué necesitás: puedo ayudarte con servicios, horarios, ubicaciones o una cita.',
+      lead: leadBefore, wantsAppointment: wantedBefore, ready: false, whatsapp: null,
+    });
+  }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 22000);
   try {
+    const messages = [
+      { role: 'system', content: system },
+      // La bienvenida visual está presente como contexto real en la conversación.
+      ...(!history.length ? [{ role: 'assistant', content: WELCOME }] : []),
+      ...history,
+      { role: 'user', content: input },
+    ];
     const upstream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + process.env.GROQ_API_KEY, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
-        temperature: 0.55, max_completion_tokens: 420,
-        response_format: { type: 'json_object' },
-        messages: [{ role: 'system', content: system }, ...history, { role: 'user', content: input }],
+        model: currentModel(),
+        temperature: 0.35,
+        reasoning_effort: 'low',
+        max_completion_tokens: 1200,
+        response_format: { type: 'json_schema', json_schema: OUTPUT_SCHEMA },
+        messages,
       }),
       signal: controller.signal,
     });
     if (!upstream.ok) {
-      // No hacer logging del cuerpo, prompt, API key ni datos personales.
-      return respond(res, upstream.status === 429 ? 429 : 502, {
-        error: upstream.status === 429
-          ? 'Tenemos muchas consultas en este momento. Intentalo en un momento.'
-          : 'No pude conectarme al asistente ahora. Podés contactar al taller por WhatsApp.',
-      });
+      // No registrar datos del cliente, prompt, cuerpo de error ni API key.
+      console.error('[EuroFactory assistant] Groq status:', upstream.status);
+      if (upstream.status === 429) return respond(res, 429, { error: 'Hay muchas consultas en este momento. Probá nuevamente en un minuto.' });
+      if (upstream.status === 401 || upstream.status === 403) return respond(res, 502, { error: 'La conexión con Groq necesita revisar la clave o los permisos en Vercel.' });
+      if (upstream.status === 400 || upstream.status === 404 || upstream.status === 422) return respond(res, 502, { error: 'Hay un problema con el modelo de IA configurado. El taller puede revisar su configuración de Groq.' });
+      return respond(res, 502, { error: 'No pude conectarme al asistente ahora. Podés contactar al taller por WhatsApp.' });
     }
     const result = await upstream.json();
     const raw = result?.choices?.[0]?.message?.content;
@@ -166,13 +235,16 @@ module.exports = async function handler(req, res) {
     for (const key of Object.keys(FIELDS)) if (updates[key]) lead[key] = updates[key];
     const wantsAppointment = wantedBefore || parsed?.wantsAppointment === true;
     const ready = wantsAppointment && complete(lead);
-    const reply = clean(parsed?.reply, 900) || 'Con gusto te ayudo. ¿Qué necesitás saber sobre Euro Factory?';
+    const reply = avoidDuplicateGreeting(parsed?.reply);
     return respond(res, 200, {
       reply, lead, wantsAppointment, ready,
       whatsapp: ready ? formatWhatsApp(lead) : null,
     });
-  } catch {
-    return respond(res, 502, { error: 'La conexión tardó más de lo esperado. Volvé a intentar o escribinos por WhatsApp.' });
+  } catch (error) {
+    const message = error?.name === 'AbortError'
+      ? 'La conexión está tardando más de lo esperado. Volvé a intentar.'
+      : 'No pude conectarme ahora. Probá nuevamente o escribinos por WhatsApp.';
+    return respond(res, 502, { error: message });
   } finally {
     clearTimeout(timer);
   }
