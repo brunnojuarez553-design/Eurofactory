@@ -165,3 +165,13 @@
 @media(prefers-reduced-motion:reduce){
  .footer-luxe .footer-social,.footer-luxe .footer-top-cta,.footer-luxe .footer-nav-group>a .footer-icon,.footer-luxe .footer-info-links>a .footer-icon{transition:none!important}
 }
+
+/* Footer chrome logo: genuine SVG alpha removal, no solid black panel. */
+.footer-luxe .foot-identity .logo-official--transparent{
+ display:block;width:258px!important;max-width:100%;
+ height:auto!important;background:transparent!important;
+ mix-blend-mode:normal!important;filter:none!important;
+}
+@media(max-width:480px){
+ .footer-luxe .foot-identity .logo-official--transparent{width:235px!important}
+}

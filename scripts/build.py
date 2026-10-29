@@ -37,7 +37,9 @@ def btn(label,href,cls='btn-light'):
 def breadcrumb(*items):
     return '<nav class="crumb" aria-label="Ruta de navegación"><a href="/">Inicio</a> / '+ ' / '.join(E(it) for it in items) + '</nav>'
 
-def brand():
+def brand(transparent=False):
+    if transparent:
+        return '''<a class="logo" href="/" aria-label="Euro Factory, volver al inicio"><svg class="logo-official logo-official--transparent" xmlns="http://www.w3.org/2000/svg" width="540" height="211" viewBox="0 0 664 259" role="img" aria-label="Euro Factory · Garage Premium Automotriz"><title>Euro Factory · Garage Premium Automotriz</title><defs><filter id="ef-footer-logo-alpha" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 .8 .8 .8 0 -.2"/></filter></defs><image href="/assets/eurofactory-logo.webp" width="664" height="259" filter="url(#ef-footer-logo-alpha)" preserveAspectRatio="xMidYMid meet"/></svg></a>'''
     return '''<a class="logo" href="/" aria-label="Euro Factory, volver al inicio"><img class="logo-official" src="/assets/eurofactory-logo.webp" width="540" height="211" alt="Euro Factory · Garage Premium Automotriz" decoding="async"></a>'''
 
 
@@ -69,7 +71,7 @@ def footer():
   </div>
   <div class="foot-grid footer-luxe-grid">
     <div class="foot-identity">
-      {brand()}
+      {brand(transparent=True)}
       <p>Precisión técnica, atención cercana y confianza en cada detalle. Servicio automotriz especializado en vehículos europeos, con sedes en Maracay y Valencia.</p>
       <div class="footer-socials" aria-label="Redes sociales y mensajería">
         <a href="{E(INSTAGRAM)}" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Instagram de Euro Factory, abre en nueva pestaña" title="Instagram">{footer_icon('instagram', True)}</a>
@@ -136,7 +138,7 @@ def layout(path,title,description,body,schema=None,ogtype='website'):
 <link rel="canonical" href="{E(canonical)}"><link rel="icon" type="image/webp" href="/assets/eurofactory-icon.webp">
 <meta property="og:type" content="{ogtype}"><meta property="og:locale" content="es_VE"><meta property="og:site_name" content="Euro Factory"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(description)}"><meta property="og:url" content="{E(canonical)}"><meta property="og:image" content="{E(URL)}/assets/bmw-detalle.webp">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{E(title)}"><meta name="twitter:description" content="{E(description)}">
-<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1"><link rel="stylesheet" href="/assets/premium.css?v=4"><link rel="stylesheet" href="/assets/footer-luxe.css?v=1">{brandbar_css}{services_banner_css}{about_banner_css}{maintenance_photo_css}<link rel="stylesheet" href="/assets/mobile-studio.css?v=3">{faq_photo_css}{evidence_discover_css}{section_photos_css}<link rel="stylesheet" href="/assets/scroll-reveal.css?v=1">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}{' intake-page' if path in ('/evaluacion/', '/contacto/') else ''}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
+<link rel="preload" href="/assets/barlow-condensed-bold.ttf" as="font" type="font/ttf" crossorigin><link rel="stylesheet" href="/assets/styles.css?v=6"><link rel="stylesheet" href="/assets/refinement.css?v=6"><link rel="stylesheet" href="/assets/locations.css?v=1"><link rel="stylesheet" href="/assets/premium.css?v=4"><link rel="stylesheet" href="/assets/footer-luxe.css?v=2">{brandbar_css}{services_banner_css}{about_banner_css}{maintenance_photo_css}<link rel="stylesheet" href="/assets/mobile-studio.css?v=3">{faq_photo_css}{evidence_discover_css}{section_photos_css}<link rel="stylesheet" href="/assets/scroll-reveal.css?v=1">{schema_script}</head><body class="{'home-page' if path=='/' else 'inner-page'}{' intake-page' if path in ('/evaluacion/', '/contacto/') else ''}"><a class="skip-link" href="#contenido">Saltar al contenido</a>
 <div class="reading-progress" aria-hidden="true" data-reading-progress></div>
 <header class="header"><div class="wrap header-in">{brand()}<nav class="nav" aria-label="Navegación principal">{navhtml}</nav><div class="nav-cta">{btn('Agenda tu evaluación','/evaluacion/','btn-accent')}<button type="button" class="mobile-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>☰</button></div></div>
 <nav id="mobile-nav" class="mobile-nav" aria-label="Navegación móvil" data-mobile-nav>{navhtml}<a href="/evaluacion/">Solicitar evaluación ↗</a></nav></header>
