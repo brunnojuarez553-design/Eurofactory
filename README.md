@@ -103,3 +103,6 @@ La sección de FAQs en Inicio y en `/preguntas-frecuentes/` presenta la imagen C
 
 ## CTA «Conoce Euro Factory» — Inicio
 Se reemplazó el enlace plano al final de Nuestra esencia por una tarjeta CTA accesible y destacada con flecha SVG inline, borde ámbar, brillo sutil, flecha en movimiento, animación de halo y microinteracciones hover/focus. Diseño adaptable a móvil y escritorio, y `prefers-reduced-motion`. Solo en Inicio; la versión ampliada de Nosotros conserva su enlace a Servicios. Fuente: `evidence_section()` en `scripts/build.py`. Estilos aislados en `evidence-discover.css?v=1`.
+
+## Fondos superpuestos de secciones (octubre de 2026)
+En Inicio, la franja `01 / EMPIEZA AQUÍ` usa la foto `https://res.cloudinary.com/pcuis0hp/image/upload/v1793200963/IMG_2834.jpg` con degradado negro para mantener el formulario de sede/vehículo legible. La galería de trabajos usa `https://res.cloudinary.com/pcuis0hp/image/upload/v1793200961/IMG_2841.jpg` como fondo de la sección, tanto en Inicio como en `/galeria/`, conservando todas las fotos y sus enlaces ampliados. Reglas aisladas en `section-photo-overlays.css?v=1`, cargadas en esas dos rutas y adaptadas a móvil. El generador `scripts/build.py` lleva las clases `consult-photo-section` y `gallery-photo-section` para persistencia entre builds.

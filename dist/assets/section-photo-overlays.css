@@ -1,0 +1,127 @@
+/* Euro Factory — imágenes superpuestas para Inicio y Galería.
+   Dos fondos solicitados por el cliente, estilo grafito/ámbar con contraste reforzado. */
+
+/* 01 / EMPIEZA AQUÍ · selección de sede y vehículo. */
+.consult-strip.consult-photo-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding-block:clamp(37px,4vw,60px);
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.16);
+  background-color:#0d1014;
+  background-image:
+    linear-gradient(90deg,rgba(7,9,13,.95) 0%,rgba(7,9,13,.82) 44%,rgba(7,9,13,.56) 100%),
+    linear-gradient(0deg,rgba(7,9,13,.72),rgba(7,9,13,.08) 44%,rgba(7,9,13,.54)),
+    url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200963/IMG_2834.jpg");
+  background-position:center,center,center 54%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.consult-strip.consult-photo-section::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  inset:0;
+  z-index:-1;
+  background:radial-gradient(ellipse at 88% 0%,rgba(242,179,46,.1),transparent 45%);
+}
+.consult-strip.consult-photo-section>.wrap{position:relative;z-index:1}
+.consult-strip.consult-photo-section .eyebrow{color:#ffcb68}
+.consult-strip.consult-photo-section h2{
+  color:#fffaf0;
+  text-shadow:0 3px 20px rgba(0,0,0,.2);
+}
+.consult-strip.consult-photo-section .visit-selector label{color:#f0f0f0}
+.consult-strip.consult-photo-section .visit-selector select{
+  background:rgba(15,18,24,.94);
+  border-color:rgba(255,255,255,.3);
+  color:#fff;
+}
+.consult-strip.consult-photo-section .visit-selector select:focus-visible{
+  outline:2px solid #ffca63;
+  outline-offset:2px;
+}
+
+/* NUESTROS TRABAJOS · galería en Inicio y página /galeria/. */
+.section.gallery-section.gallery-photo-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  color:#f8f7f3;
+  border-top:1px solid rgba(255,255,255,.11);
+  border-bottom:1px solid rgba(255,255,255,.11);
+  background-color:#0b0e13;
+  background-image:
+    linear-gradient(90deg,rgba(7,9,13,.94) 0%,rgba(7,9,13,.81) 44%,rgba(7,9,13,.62) 100%),
+    linear-gradient(0deg,rgba(7,9,13,.86) 0%,rgba(7,9,13,.13) 52%,rgba(7,9,13,.76) 100%),
+    url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200961/IMG_2841.jpg");
+  background-position:center,center,center 48%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.section.gallery-section.gallery-photo-section::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  inset:0;
+  z-index:-1;
+  background:radial-gradient(ellipse at 92% 6%,rgba(242,179,46,.105),transparent 48%);
+}
+.section.gallery-section.gallery-photo-section>.wrap{position:relative;z-index:1}
+.section.gallery-section.gallery-photo-section .section-head{
+  border-bottom-color:rgba(255,255,255,.17);
+}
+.section.gallery-section.gallery-photo-section .eyebrow{
+  color:#f4c471;
+}
+.section.gallery-section.gallery-photo-section .title{
+  color:#fffaf2;
+  text-shadow:0 3px 25px rgba(0,0,0,.25);
+}
+.section.gallery-section.gallery-photo-section .line-link{
+  color:#f7e5bd;
+  border-color:rgba(242,179,46,.55);
+}
+.section.gallery-section.gallery-photo-section .line-link:hover{color:#ffd478}
+.section.gallery-section.gallery-photo-section .gallery-disclaimer{
+  color:#d3d4d6;
+  text-shadow:0 1px 13px rgba(0,0,0,.5);
+}
+.section.gallery-section.gallery-photo-section .gallery-item{
+  box-shadow:0 16px 45px rgba(0,0,0,.27);
+  border-color:rgba(255,255,255,.14);
+}
+.section.gallery-section.gallery-photo-section .gallery-social{
+  box-shadow:0 16px 45px rgba(0,0,0,.27);
+}
+
+@media(max-width:900px){
+  .consult-strip.consult-photo-section{
+    background-position:center,center,56% center;
+  }
+  .section.gallery-section.gallery-photo-section{
+    background-position:center,center,60% center;
+  }
+}
+@media(max-width:700px){
+  .consult-strip.consult-photo-section{
+    padding-block:29px;
+    background-image:
+      linear-gradient(90deg,rgba(7,9,13,.94),rgba(7,9,13,.75)),
+      linear-gradient(0deg,rgba(7,9,13,.75),rgba(7,9,13,.18) 49%,rgba(7,9,13,.67)),
+      url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200963/IMG_2834.jpg");
+    background-position:center,center,58% center;
+  }
+  .section.gallery-section.gallery-photo-section{
+    background-image:
+      linear-gradient(90deg,rgba(7,9,13,.95),rgba(7,9,13,.77)),
+      linear-gradient(0deg,rgba(7,9,13,.89),rgba(7,9,13,.18) 47%,rgba(7,9,13,.83)),
+      url("https://res.cloudinary.com/pcuis0hp/image/upload/v1793200961/IMG_2841.jpg");
+    background-position:center,center,62% center;
+  }
+  .section.gallery-section.gallery-photo-section .section-head{border-color:rgba(255,255,255,.15)}
+}
+@media(prefers-reduced-transparency:reduce){
+  .consult-strip.consult-photo-section .visit-selector select{background:#0f1218}
+}
